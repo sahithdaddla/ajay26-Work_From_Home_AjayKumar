@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard - WFH Requests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --error: #ef4444;
+            --error-light: #fee2e2;
+            --warning: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --gray-light: #e2e8f0;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --reflection-opacity: 0.04;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        /* Status Message */
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 1100;
+            transform: translateX(120%);
+            transition: transform 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .status-message.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .status-message.success {
+            background-color: var(--success-light);
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+
+        .status-message.error {
+            background-color: var(--error-light);
+            color: var(--error);
+            border-left: 4px solid var(--error);
+        }
+
+        .status-message i {
+            font-size: 1.25rem;
+        }
+
+        /* Reflection Effect */
+        .reflection-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reflection {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(
+                to bottom, 
+                rgba(255, 255, 255, var(--reflection-opacity)), 
+                rgba(255, 255, 255, 0)
+            );
+            transform: scaleY(-1);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        /* Cards and Modals */
+        .request-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--gray-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .request-card::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(
+                to bottom, 
+                rgba(255, 255, 255, var(--reflection-opacity)), 
+                rgba(255, 255, 255, 0)
+            );
+            transform: scaleY(-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .request-card:hover::after {
+            opacity: 0.8;
+        }
+
+        .modal-content {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-content::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(
+                to bottom, 
+                rgba(255, 255, 255, var(--reflection-opacity)), 
+                rgba(255, 255, 255, 0)
+            );
+            transform: scaleY(-1);
+            opacity: 0.6;
+        }
+
+        /* Rest of your existing styles... */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .requests-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .request-card.pending {
+            border-left-color: var(--warning);
+        }
+
+        .request-card.approved {
+            border-left-color: var(--success);
+        }
+
+        .request-card.rejected {
+            border-left-color: var(--error);
+        }
+
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .employee-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .employee-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .employee-details {
+            overflow: hidden;
+        }
+
+        .employee-name {
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .employee-id {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .request-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--gray);
+            width: 16px;
+            text-align: center;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .status-badge.pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-badge.approved {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-badge.rejected {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .view-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .request-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .detail-group {
+            margin-bottom: 1rem;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .reason-box {
+            grid-column: span 2;
+            background-color: rgba(124, 58, 237, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin-top: 1rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-light);
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-approve {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background-color: #0e9d71;
+        }
+
+        .btn-reject {
+            background-color: var(--error);
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background-color: #dc3c3c;
+        }
+
+        .btn-cancel {
+            background-color: var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-cancel:hover {
+            background-color: #d1d8e0;
+        }
+
+        .confirmation-modal .modal-content {
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-message {
+            margin-bottom: 2rem;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .request-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .reason-box {
+                grid-column: span 1;
+            }
+            
+            .modal-footer {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Status Message Container -->
+    <div id="statusMessageContainer"></div>
+
+    <div class="header">
+        <h1 class="page-title">WFH Requests</h1>
+    </div>
+
+    <div class="requests-container">
+        <!-- Pending Request -->
+        <div class="request-card pending reflection-container">
+            <div class="request-header">
+                <div class="employee-info">
+                    <div class="employee-avatar">JD</div>
+                    <div class="employee-details">
+                        <div class="employee-name">John Doe</div>
+                        <div class="employee-id">DEV001</div>
+                    </div>
+                </div>
+                <div class="status-badge pending">
+                    <i class="fas fa-clock"></i> Pending
+                </div>
+            </div>
+            
+            <div class="request-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>May 15 - 17, 2023</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>New York</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Project Phoenix</span>
+                </div>
+            </div>
+            
+            <button class="view-btn" data-id="1">
+                View Details <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="reflection"></div>
+        </div>
+
+        <!-- Approved Request -->
+        <div class="request-card approved reflection-container">
+            <div class="request-header">
+                <div class="employee-info">
+                    <div class="employee-avatar">AS</div>
+                    <div class="employee-details">
+                        <div class="employee-name">Alice Smith</div>
+                        <div class="employee-id">DEV002</div>
+                    </div>
+                </div>
+                <div class="status-badge approved">
+                    <i class="fas fa-check-circle"></i> Approved
+                </div>
+            </div>
+            
+            <div class="request-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>May 18 - 20, 2023</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>London</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Project Atlas</span>
+                </div>
+            </div>
+            
+            <button class="view-btn" data-id="2">
+                View Details <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="reflection"></div>
+        </div>
+
+        <!-- Rejected Request -->
+        <div class="request-card rejected reflection-container">
+            <div class="request-header">
+                <div class="employee-info">
+                    <div class="employee-avatar">RJ</div>
+                    <div class="employee-details">
+                        <div class="employee-name">Robert Johnson</div>
+                        <div class="employee-id">DEV003</div>
+                    </div>
+                </div>
+                <div class="status-badge rejected">
+                    <i class="fas fa-times-circle"></i> Rejected
+                </div>
+            </div>
+            
+            <div class="request-meta">
+                <div class="meta-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>May 21 - 23, 2023</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Berlin</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Project Titan</span>
+                </div>
+            </div>
+            
+            <button class="view-btn" data-id="3">
+                View Details <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="reflection"></div>
+        </div>
+    </div>
+
+    <!-- Request Detail Modal -->
+    <div class="modal" id="requestModal">
+        <div class="modal-content reflection-container">
+            <div class="modal-header">
+                <h3 class="modal-title">WFH Request Details</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="request-details" id="modalDetails">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!-- Action buttons will be loaded here -->
+            </div>
+            <div class="reflection"></div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal confirmation-modal" id="confirmationModal">
+        <div class="modal-content reflection-container">
+            <div class="modal-body">
+                <div class="confirmation-icon" id="confirmationIcon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3 class="modal-title" id="confirmationTitle">Confirm Action</h3>
+                <p class="confirmation-message" id="confirmationMessage">
+                    Are you sure you want to perform this action?
+                </p>
+                <div class="confirmation-buttons">
+                    <button class="btn btn-cancel" id="confirmCancel">Cancel</button>
+                    <button class="btn" id="confirmAction">Confirm</button>
+                </div>
+            </div>
+            <div class="reflection"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('requestModal');
+            const confirmationModal = document.getElementById('confirmationModal');
+            const modalClose = document.getElementById('modalClose');
+            const confirmCancel = document.getElementById('confirmCancel');
+            const confirmAction = document.getElementById('confirmAction');
+            const viewButtons = document.querySelectorAll('.view-btn');
+            const statusMessageContainer = document.getElementById('statusMessageContainer');
+            
+            // Sample data - in real app this would come from your backend
+            const requests = {
+                1: {
+                    name: "John Doe",
+                    id: "DEV001",
+                    email: "john.doe@company.com",
+                    project: "Project Phoenix",
+                    manager: "Sarah Williams",
+                    location: "New York, US",
+                    from: "2023-05-15",
+                    to: "2023-05-17",
+                    reason: "I need to work from home during these dates as I have a scheduled home renovation that requires my presence. I will be available online during all working hours and can be reached at my usual contact details.",
+                    status: "pending"
+                },
+                2: {
+                    name: "Alice Smith",
+                    id: "DEV002",
+                    email: "alice.smith@company.com",
+                    project: "Project Atlas",
+                    manager: "Michael Brown",
+                    location: "London, UK",
+                    from: "2023-05-18",
+                    to: "2023-05-20",
+                    reason: "Family commitments require me to be at home during these dates. I will ensure all my tasks are completed on schedule.",
+                    status: "approved"
+                },
+                3: {
+                    name: "Robert Johnson",
+                    id: "DEV003",
+                    email: "robert.johnson@company.com",
+                    project: "Project Titan",
+                    manager: "Emily Davis",
+                    location: "Berlin, Germany",
+                    from: "2023-05-21",
+                    to: "2023-05-23",
+                    reason: "I have an important personal matter to attend to that requires me to be at home. I will be available for all meetings and deliverables.",
+                    status: "rejected"
+                }
+            };
+            
+            let currentAction = null;
+            let currentRequestId = null;
+            
+            // Format date as "Month Day, Year"
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString(undefined, options);
+            }
+            
+            // Show status message
+            function showStatusMessage(type, message) {
+                const messageEl = document.createElement('div');
+                messageEl.className = `status-message ${type}`;
+                messageEl.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                `;
+                
+                statusMessageContainer.appendChild(messageEl);
+                
+                // Trigger reflow to enable animation
+                void messageEl.offsetWidth;
+                
+                messageEl.classList.add('show');
+                
+                // Remove after 5 seconds
+                setTimeout(() => {
+                    messageEl.classList.remove('show');
+                    setTimeout(() => {
+                        messageEl.remove();
+                    }, 300);
+                }, 5000);
+            }
+            
+            // Open request detail modal
+            viewButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const requestId = button.getAttribute('data-id');
+                    const request = requests[requestId];
+                    
+                    // Populate modal with request details
+                    document.getElementById('modalDetails').innerHTML = `
+                        <div class="detail-group">
+                            <div class="detail-label">Employee Name</div>
+                            <div class="detail-value">${request.name}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Employee ID</div>
+                            <div class="detail-value">${request.id}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Email</div>
+                            <div class="detail-value">${request.email}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Reporting Manager</div>
+                            <div class="detail-value">${request.manager}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">Project</div>
+                            <div class="detail-value">${request.project}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">WFH Location</div>
+                            <div class="detail-value">${request.location}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">From Date</div>
+                            <div class="detail-value">${formatDate(request.from)}</div>
+                        </div>
+                        <div class="detail-group">
+                            <div class="detail-label">To Date</div>
+                            <div class="detail-value">${formatDate(request.to)}</div>
+                        </div>
+                        <div class="reason-box">
+                            <div class="detail-label">Reason for WFH</div>
+                            <div class="detail-value">${request.reason}</div>
+                        </div>
+                    `;
+                    
+                    // Only show action buttons for pending requests
+                    if (request.status === 'pending') {
+                        document.getElementById('modalFooter').innerHTML = `
+                            <button class="btn btn-approve" data-id="${requestId}">
+                                <i class="fas fa-check"></i> Approve
+                            </button>
+                            <button class="btn btn-reject" data-id="${requestId}">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        `;
+                        
+                        // Add event listeners to action buttons
+                        document.querySelector('.btn-approve').addEventListener('click', () => {
+                            showConfirmation('approve', requestId, request.name, request.from, request.to);
+                        });
+                        
+                        document.querySelector('.btn-reject').addEventListener('click', () => {
+                            showConfirmation('reject', requestId, request.name, request.from, request.to);
+                        });
+                    } else {
+                        document.getElementById('modalFooter').innerHTML = '';
+                    }
+                    
+                    modal.classList.add('show');
+                });
+            });
+            
+            // Show confirmation dialog
+            function showConfirmation(action, requestId, name, fromDate, toDate) {
+                currentAction = action;
+                currentRequestId = requestId;
+                
+                const icon = document.getElementById('confirmationIcon');
+                const title = document.getElementById('confirmationTitle');
+                const message = document.getElementById('confirmationMessage');
+                const actionBtn = document.getElementById('confirmAction');
+                
+                if (action === 'approve') {
+                    icon.innerHTML = '<i class="fas fa-check-circle" style="color: var(--success)"></i>';
+                    title.textContent = 'Approve Request';
+                    message.textContent = `Are you sure you want to approve ${name}'s WFH request from ${formatDate(fromDate)} to ${formatDate(toDate)}?`;
+                    actionBtn.className = 'btn btn-approve';
+                    actionBtn.innerHTML = '<i class="fas fa-check"></i> Approve';
+                } else {
+                    icon.innerHTML = '<i class="fas fa-exclamation-circle" style="color: var(--error)"></i>';
+                    title.textContent = 'Reject Request';
+                    message.textContent = `Are you sure you want to reject ${name}'s WFH request from ${formatDate(fromDate)} to ${formatDate(toDate)}?`;
+                    actionBtn.className = 'btn btn-reject';
+                    actionBtn.innerHTML = '<i class="fas fa-times"></i> Reject';
+                }
+                
+                confirmationModal.classList.add('show');
+            }
+            
+            // Handle confirmation action
+            confirmAction.addEventListener('click', () => {
+                confirmationModal.classList.remove('show');
+                modal.classList.remove('show');
+                
+                // In a real app, you would make an API call here
+                // For demo, we'll just show a status message
+                if (currentAction === 'approve') {
+                    showStatusMessage('success', 'Request approved successfully!');
+                } else {
+                    showStatusMessage('error', 'Request has been rejected.');
+                }
+                
+                // Reset action tracking
+                currentAction = null;
+                currentRequestId = null;
+            });
+            
+            // Close modals
+            modalClose.addEventListener('click', () => {
+                modal.classList.remove('show');
+            });
+            
+            confirmCancel.addEventListener('click', () => {
+                confirmationModal.classList.remove('show');
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+                if (e.target === confirmationModal) {
+                    confirmationModal.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

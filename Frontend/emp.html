@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work From Home Request</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --primary-extra-light: #e0e7ff;
+            --secondary: #f43f5e;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --lighter: #ffffff;
+            --gray: #94a3b8;
+            --gray-light: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: var(--dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1200px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius-xl);
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+            z-index: -1;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--card-shadow);
+        }
+
+        .filter-left {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .filter-left select {
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-size: 0.95rem;
+            background: var(--lighter);
+            transition: var(--transition);
+        }
+
+        .filter-left select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .filter-right .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-right .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #3b82f6);
+            transform: translateY(-2px);
+        }
+
+        .requests-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .requests-container h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .request-item {
+            display: grid;
+            grid-template-columns: 2fr 3fr 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+            background: linear-gradient(135deg, #f8fafc, #ffffff);
+            border-radius: var(--border-radius);
+        }
+
+        .request-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .request-item div {
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        .request-item .request-type {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .request-item .request-dates {
+            color: var(--gray);
+        }
+
+        .request-item .view-link {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .request-item .view-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+
+        .no-data img {
+            max-width: 150px;
+            margin-bottom: 1rem;
+        }
+
+        .right-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .calendar-container {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--border-radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            height: 70vh;
+            overflow-y: auto;
+            color: white;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .calendar-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: var(--border-radius);
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            color: white;
+        }
+
+        .calendar-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .calendar-month {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            font-weight: 500;
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .calendar-day:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .calendar-day.today {
+            background: var(--success);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.selected {
+            background: var(--primary-dark);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.wfh {
+            background: rgba(16, 185, 129, 0.3);
+            color: white;
+            font-weight: 600;
+            border: 1px dashed var(--success);
+        }
+
+        .calendar-day.wfh::after {
+            content: '\f015';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 0.7rem;
+            color: var(--success);
+        }
+
+        .calendar-day.disabled {
+            color: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .summary-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius-xl);
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            height: 30vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, var(--primary), var(--success)) 10;
+        }
+
+        .summary-container h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .summary-item i {
+            font-size: 1.5rem;
+            color: var(--success);
+        }
+
+        .no-data img {
+            max-width: 100px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--lighter);
+            padding: 2rem;
+            border-radius: var(--border-radius-xl);
+            max-width: 600px;
+            width: 90%;
+            box-shadow: var(--card-shadow-hover);
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--error);
+        }
+
+        .form-container {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--darker);
+            font-size: 0.9rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background-color: var(--lighter);
+            color: var(--dark);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #3b82f6);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
+        }
+
+        .confirmation-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .confirmation-animation.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .confirmation-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius-xl);
+            text-align: center;
+            max-width: 400px;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--card-shadow-hover);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .confirmation-animation.show .confirmation-content {
+            transform: scale(1);
+        }
+
+        .confirmation-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        .confirmation-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--darker);
+        }
+
+        .confirmation-message {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .confirmation-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .confirmation-button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #3b82f6);
+            transform: translateY(-2px);
+        }
+
+        .detail-modal-content {
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .detail-modal-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .detail-modal-content p {
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark);
+        }
+
+        .detail-modal-content p i {
+            color: var(--gray);
+        }
+
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-container {
+                height: 50vh;
+            }
+
+            .summary-container {
+                height: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .filter-left {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .filter-left select {
+                width: 100%;
+            }
+
+            .request-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .calendar-container {
+                height: 40vh;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* New styles for WFH summary */
+        .wfh-count {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .allocated {
+            color: var(--success);
+        }
+
+        .remaining {
+            color: var(--warning);
+        }
+
+        .last-approved {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Form toggle styles */
+        .form-toggle-container {
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .form-toggle-container.show {
+            display: block;
+        }
+
+        .btn-close {
+            background-color: var(--warning) !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="fade-in">
+        <h1>Work From Home Request</h1>
+        <p>Manage your remote work requests efficiently</p>
+    </header>
+
+    <div class="filter-container fade-in">
+        <div class="filter-left">
+            <select id="monthFilter">
+                <option value="">All Months</option>
+                <option value="0">January</option>
+                <option value="1">February</option>
+                <option value="2">March</option>
+                <option value="3">April</option>
+                <option value="4">May</option>
+                <option value="5">June</option>
+                <option value="6">July</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">October</option>
+                <option value="10">November</option>
+                <option value="11">December</option>
+            </select>
+            <select id="yearFilter">
+                <option value="">All Years</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+            </select>
+        </div>
+        <div class="filter-right">
+            <button class="btn btn-primary" id="applyWFH"><i class="fas fa-laptop-house"></i> Apply WFH Request</button>
+        </div>
+    </div>
+
+    <div class="form-toggle-container" id="formToggleContainer">
+        <div class="filter-container">
+            <div class="form-container">
+                <h2 class="form-title"><i class="fas fa-laptop-house"></i> WFH Request Form</h2>
+                <form id="wfhForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="employeeName">Employee Name</label>
+                            <input type="text" id="employeeName" placeholder="John Doe" required>
+                            <p class="error-message" id="employeeNameError">Invalid name format</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="employeeID">Employee ID</label>
+                            <input type="text" id="employeeID" placeholder="ABC1234" required>
+                            <p class="error-message" id="employeeIDError">Invalid ID format</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="employeeEmail">Email</label>
+                            <input type="email" id="employeeEmail" placeholder="john@company.com" required>
+                            <p class="error-message" id="employeeEmailError">Only company email domains allowed</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="workingProject">Project</label>
+                            <input type="text" id="workingProject" placeholder="Project Name" required>
+                            <p class="error-message" id="workingProjectError">Invalid project name</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reportingManager">Manager</label>
+                            <input type="text" id="reportingManager" placeholder="Manager Name" required>
+                            <p class="error-message" id="reportingManagerError">Invalid name</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="wfhLocation">Location</label>
+                            <input type="text" id="wfhLocation" placeholder="City, Country" required>
+                            <p class="error-message" id="wfhLocationError">Invalid location</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fromDate">From Date</label>
+                            <input type="date" id="fromDate" required>
+                            <p class="error-message" id="fromDateError">Invalid date</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="toDate">To Date</label>
+                            <input type="date" id="toDate" required>
+                            <p class="error-message" id="toDateError">Invalid date</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason</label>
+                        <textarea id="reason" placeholder="Briefly explain your reason for WFH..." required></textarea>
+                        <p class="error-message" id="reasonError">Reason is required</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container fade-in">
+        <div class="requests-container">
+            <h2><i class="fas fa-list"></i> My Requests</h2>
+            <div id="requestsList"></div>
+        </div>
+        <div class="right-container">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h2 class="calendar-title"><i class="far fa-calendar-alt"></i> WFH Calendar</h2>
+                    <div class="calendar-nav">
+                        <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div id="currentMonthYear" class="calendar-month"></div>
+                <div class="calendar-grid" id="calendarDaysHeader"></div>
+                <div class="calendar-grid" id="calendarDays"></div>
+            </div>
+            <div class="summary-container">
+                <h2><i class="fas fa-chart-pie"></i> WFH Summary</h2>
+                <div id="wfhSummary"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="detailModal">
+        <div class="modal-content detail-modal-content">
+            <i class="fas fa-times modal-close" id="closeDetailModal"></i>
+            <div id="requestDetails"></div>
+        </div>
+    </div>
+
+    <div class="confirmation-animation" id="confirmationAnimation">
+        <div class="confirmation-content">
+            <img src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif" class="confirmation-icon" alt="Success">
+            <h3 class="confirmation-title">Request Submitted!</h3>
+            <p class="confirmation-message">Your work from home request has been successfully submitted for approval.</p>
+            <button class="confirmation-button" id="confirmationButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:3000';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('wfhForm');
+            const requestsList = document.getElementById('requestsList');
+            const wfhSummary = document.getElementById('wfhSummary');
+            const confirmationAnimation = document.getElementById('confirmationAnimation');
+            const confirmationButton = document.getElementById('confirmationButton');
+            const calendarDays = document.getElementById('calendarDays');
+            const calendarDaysHeader = document.getElementById('calendarDaysHeader');
+            const currentMonthYear = document.getElementById('currentMonthYear');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            const applyWFH = document.getElementById('applyWFH');
+            const formToggleContainer = document.getElementById('formToggleContainer');
+            const closeDetailModal = document.getElementById('closeDetailModal');
+            const detailModal = document.getElementById('detailModal');
+            const monthFilter = document.getElementById('monthFilter');
+            const yearFilter = document.getElementById('yearFilter');
+
+            let allSubmissions = [];
+            let currentDate = new Date();
+            let currentMonth = currentDate.getMonth();
+            let currentYear = currentDate.getFullYear();
+            const ANNUAL_WFH_LIMIT = 20; // Example limit
+
+            init();
+
+            function init() {
+                setupEventListeners();
+                generateCalendarHeader();
+                generateCalendar(currentMonth, currentYear);
+                fetchSubmissions();
+                checkAnimations();
+            }
+
+            function setupEventListeners() {
+                form.addEventListener('submit', handleFormSubmit);
+                applyWFH.addEventListener('click', toggleForm);
+                closeDetailModal.addEventListener('click', () => detailModal.classList.remove('show'));
+                monthFilter.addEventListener('change', filterRequests);
+                yearFilter.addEventListener('change', filterRequests);
+
+                setupValidation('employeeName', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                               'employeeNameError', 'Invalid name format');
+                setupValidation('employeeID', /^[A-Z]{3}(?!0000)[0-9]{4}$/, 
+                               'employeeIDError', 'Invalid ID format (ABC1234)');
+                setupValidation('employeeEmail', /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|[\w-]+\.(com|in|co|org))$/, 
+                               'employeeEmailError', 'Only company email domains allowed');
+                setupValidation('workingProject', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                               'workingProjectError', 'Invalid project name');
+                setupValidation('reportingManager', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                               'reportingManagerError', 'Invalid manager name');
+                setupValidation('wfhLocation', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                               'wfhLocationError', 'Invalid location');
+
+                document.getElementById('fromDate').addEventListener('change', validateDates);
+                document.getElementById('toDate').addEventListener('change', validateDates);
+
+                confirmationButton.addEventListener('click', () => {
+                    confirmationAnimation.classList.remove('show');
+                });
+
+                prevMonthBtn.addEventListener('click', () => {
+                    currentMonth--;
+                    if (currentMonth < 0) {
+                        currentMonth = 11;
+                        currentYear--;
+                    }
+                    generateCalendar(currentMonth, currentYear);
+                });
+
+                nextMonthBtn.addEventListener('click', () => {
+                    currentMonth++;
+                    if (currentMonth > 11) {
+                        currentMonth = 0;
+                        currentYear++;
+                    }
+                    generateCalendar(currentMonth, currentYear);
+                });
+            }
+
+            function toggleForm() {
+                const isShowing = formToggleContainer.classList.contains('show');
+                formToggleContainer.classList.toggle('show');
+                applyWFH.innerHTML = isShowing 
+                    ? '<i class="fas fa-laptop-house"></i> Apply WFH Request' 
+                    : '<i class="fas fa-times"></i> Close Form';
+                applyWFH.classList.toggle('btn-close', !isShowing);
+                
+                // Scroll to form if opening
+                if (!isShowing) {
+                    formToggleContainer.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            function setupValidation(fieldId, pattern, errorId, errorMessage) {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(errorId);
+
+                field.addEventListener('input', () => {
+                    const isValid = pattern.test(field.value.trim());
+                    errorElement.textContent = isValid ? '' : errorMessage;
+                    errorElement.style.display = isValid ? 'none' : 'block';
+                    field.setCustomValidity(isValid ? '' : errorMessage);
+                });
+            }
+
+            function validateDates() {
+                const fromDate = new Date(document.getElementById('fromDate').value);
+                const toDate = new Date(document.getElementById('toDate').value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const fromError = document.getElementById('fromDateError');
+                const toError = document.getElementById('toDateError');
+
+                if (fromDate && fromDate < today) {
+                    fromError.textContent = 'From date cannot be in the past';
+                    fromError.style.display = 'block';
+                    document.getElementById('fromDate').setCustomValidity('Invalid date');
+                } else {
+                    fromError.style.display = 'none';
+                    document.getElementById('fromDate').setCustomValidity('');
+                }
+
+                if (toDate && fromDate && toDate <= fromDate) {
+                    toError.textContent = 'To date must be after from date';
+                    toError.style.display = 'block';
+                    document.getElementById('toDate').setCustomValidity('Invalid date');
+                } else {
+                    toError.style.display = 'none';
+                    document.getElementById('toDate').setCustomValidity('');
+                }
+            }
+
+            async function handleFormSubmit(event) {
+                event.preventDefault();
+
+                if (!form.checkValidity()) {
+                    alert('Please fill out all fields correctly before submitting.');
+                    return;
+                }
+
+                const request = {
+                    name: document.getElementById('employeeName').value.trim(),
+                    employeeId: document.getElementById('employeeID').value.trim(),
+                    email: document.getElementById('employeeEmail').value.trim(),
+                    project: document.getElementById('workingProject').value.trim(),
+                    manager: document.getElementById('reportingManager').value.trim(),
+                    location: document.getElementById('wfhLocation').value.trim(),
+                    fromDate: document.getElementById('fromDate').value,
+                    toDate: document.getElementById('toDate').value,
+                    reason: document.getElementById('reason').value.trim(),
+                    status: 'Pending'
+                };
+
+                try {
+                    const response = await fetch(`${BASE_URL}/api/requests`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(request)
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.error || 'Failed to submit request');
+                    }
+
+                    form.reset();
+                    toggleForm();
+                    showConfirmation();
+                    fetchSubmissions();
+                } catch (error) {
+                    console.error('Error submitting request:', error);
+                    alert(`Error: ${error.message}`);
+                }
+            }
+
+            function showConfirmation() {
+                confirmationAnimation.classList.add('show');
+                setTimeout(() => {
+                    if (confirmationAnimation.classList.contains('show')) {
+                        confirmationAnimation.classList.remove('show');
+                    }
+                }, 3000);
+            }
+
+            async function fetchSubmissions() {
+                try {
+                    const response = await fetch(`${BASE_URL}/api/requests`);
+                                     if (!response.ok) throw new Error('Failed to fetch submissions');
+                    allSubmissions = await response.json();
+                    filterRequests();
+                    displaySummary();
+                    generateCalendar(currentMonth, currentYear);
+                } catch (error) {
+                    console.error('Error fetching submissions:', error);
+                    requestsList.innerHTML = `
+                        <div class="no-data">
+                            <img src="https://cdn.pixabay.com/photo/2020/09/27/12/21/empty-5606696_1280.png" alt="No Data">
+                            <p>Error loading requests</p>
+                        </div>
+                    `;
+                    wfhSummary.innerHTML = `
+                        <div class="no-data">
+                            <img src="https://cdn.pixabay.com/photo/2020/09/27/12/21/empty-5606696_1280.png" alt="No Data">
+                            <p>Error loading summary</p>
+                        </div>
+                    `;
+                }
+            }
+
+            function filterRequests() {
+                const month = monthFilter.value;
+                const year = yearFilter.value;
+
+                const filteredSubmissions = allSubmissions.filter(sub => {
+                    const fromDate = new Date(sub.from_date);
+                    const matchesMonth = month === '' || fromDate.getMonth() === parseInt(month);
+                    const matchesYear = year === '' || fromDate.getFullYear() === parseInt(year);
+                    return matchesMonth && matchesYear;
+                });
+
+                displayRequests(filteredSubmissions);
+            }
+
+            function displayRequests(submissions) {
+                requestsList.innerHTML = '';
+                if (submissions.length === 0) {
+                    requestsList.innerHTML = `
+                        <div class="no-data">
+                            <img src="https://cdn.pixabay.com/photo/2020/09/27/12/21/empty-5606696_1280.png" alt="No Data">
+                            <p>No requests found</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                submissions.forEach(sub => {
+                    const item = document.createElement('div');
+                    item.className = 'request-item fade-in';
+                    const fromDate = formatDate(sub.from_date);
+                    const toDate = formatDate(sub.to_date);
+                    item.innerHTML = `
+                        <div class="request-type"><i class="fas fa-laptop-house"></i> Work From Home</div>
+                        <div class="request-dates">${fromDate} - ${toDate}</div>
+                        <a href="#" class="view-link" data-id="${sub.id}">View</a>
+                    `;
+                    item.querySelector('.view-link').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showRequestDetails(sub);
+                    });
+                    requestsList.appendChild(item);
+                });
+            }
+
+            function showRequestDetails(submission) {
+                const details = document.getElementById('requestDetails');
+                const fromDate = formatDate(submission.from_date);
+                const toDate = formatDate(submission.to_date);
+                const statusClass = `status-${submission.status.toLowerCase()}`;
+                details.innerHTML = `
+                    <h2>Request Details</h2>
+                    <p><i class="fas fa-user"></i> <strong>Name:</strong> ${submission.name}</p>
+                    <p><i class="fas fa-id-badge"></i> <strong>Employee ID:</strong> ${submission.employee_id}</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> ${submission.email}</p>
+                    <p><i class="fas fa-project-diagram"></i> <strong>Project:</strong> ${submission.project}</p>
+                    <p><i class="fas fa-user-tie"></i> <strong>Manager:</strong> ${submission.manager}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${submission.location}</p>
+                    <p><i class="fas fa-calendar-day"></i> <strong>Dates:</strong> ${fromDate} - ${toDate}</p>
+                    <p><i class="fas fa-comment"></i> <strong>Reason:</strong> ${submission.reason}</p>
+                    <p><i class="fas fa-info-circle"></i> <strong>Status:</strong> <span class="card-status ${statusClass}">${submission.status}</span></p>
+                `;
+                detailModal.classList.add('show');
+            }
+
+            function displaySummary() {
+                const currentYear = new Date().getFullYear();
+                const approvedRequests = allSubmissions
+                    .filter(sub => sub.status === 'Approved' && new Date(sub.from_date).getFullYear() === currentYear)
+                    .length;
+                
+                const remaining = ANNUAL_WFH_LIMIT - approvedRequests;
+                
+                // Find the most recent approved request
+                const approvedRequestsAll = allSubmissions.filter(sub => sub.status === 'Approved');
+                let lastApproved = null;
+                if (approvedRequestsAll.length > 0) {
+                    approvedRequestsAll.sort((a, b) => new Date(b.from_date) - new Date(a.from_date));
+                    lastApproved = approvedRequestsAll[0];
+                }
+
+                wfhSummary.innerHTML = `
+                    <div class="wfh-count allocated">${approvedRequests}/${ANNUAL_WFH_LIMIT}</div>
+                    <div>Allocated WFH (${currentYear})</div>
+                    <div class="wfh-count remaining">${remaining}</div>
+                    <div>Remaining WFH</div>
+                    ${lastApproved ? `
+                        <div class="last-approved">
+                            Last approved: ${formatDate(lastApproved.from_date)} to ${formatDate(lastApproved.to_date)}
+                        </div>
+                    ` : ''}
+                `;
+            }
+
+            function generateCalendarHeader() {
+                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                calendarDaysHeader.innerHTML = '';
+                days.forEach(day => {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day-header';
+                    dayElement.textContent = day;
+                    calendarDaysHeader.appendChild(dayElement);
+                });
+            }
+
+            function generateCalendar(month, year) {
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                                  'July', 'August', 'September', 'October', 'November', 'December'];
+                currentMonthYear.textContent = `${monthNames[month]} ${year}`;
+
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const prevMonthDays = new Date(year, month, 0).getDate();
+
+                calendarDays.innerHTML = '';
+
+                // Show only current month's days (no previous or next month)
+                const today = new Date();
+                const currentDate = today.getDate();
+                const currentMonth = today.getMonth();
+                const currentYear = today.getFullYear();
+
+                const approvedDates = allSubmissions
+                    .filter(sub => sub.status === 'Approved')
+                    .flatMap(sub => {
+                        const start = new Date(sub.from_date);
+                        const end = new Date(sub.to_date);
+                        const dates = [];
+                        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                            dates.push(new Date(d).toISOString().split('T')[0]);
+                        }
+                        return dates;
+                    });
+
+                // Add empty cells for days before the first day of the month
+                for (let i = 0; i < firstDay; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    dayElement.style.visibility = 'hidden';
+                    calendarDays.appendChild(dayElement);
+                }
+
+                // Add current month's days
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    dayElement.textContent = i;
+                    dayElement.style.backgroundColor = 'white';
+                    dayElement.style.color = 'var(--dark)';
+
+                    if (i === currentDate && month === currentMonth && year === currentYear) {
+                        dayElement.classList.add('today');
+                    }
+
+                    const dateStr = new Date(year, month, i).toISOString().split('T')[0];
+                    if (approvedDates.includes(dateStr)) {
+                        dayElement.classList.add('wfh');
+                    }
+
+                    calendarDays.appendChild(dayElement);
+                }
+
+                // Calculate total cells needed (7 rows x 7 days)
+                const totalCells = 42;
+                const remainingCells = totalCells - (firstDay + daysInMonth);
+
+                // Add empty cells for days after the last day of the month
+                for (let i = 1; i <= remainingCells; i++) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    dayElement.style.visibility = 'hidden';
+                    calendarDays.appendChild(dayElement);
+                }
+            }
+
+            function checkAnimations() {
+                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (prefersReducedMotion) {
+                    document.querySelectorAll('.fade-in, .pulse').forEach(el => {
+                        el.style.animation = 'none';
+                    });
+                }
+            }
+
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString(undefined, options);
+            }
+        });
+    </script>
+</body>
+</html>

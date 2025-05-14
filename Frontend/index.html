@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work From Home Request</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #8b5cf6;
+            --primary-dark: #6d28d9;
+            --secondary: #f43f5e;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --gray-light: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-mode {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --primary-dark: #7c3aed;
+            --dark: #f8fafc;
+            --light: #1e293b;
+            --gray: #64748b;
+            --gray-light: #334155;
+            --card-bg: rgba(30, 41, 59, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1200px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+            z-index: 1;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+            z-index: -1;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-title i {
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--dark);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .calendar-container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .calendar-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .calendar-nav button {
+            background-color: var(--gray-light);
+            border: none;
+            border-radius: 8px;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calendar-nav button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--gray);
+            padding: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background-color: var(--gray-light);
+        }
+
+        .calendar-day.today {
+            background-color: var(--primary-light);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.selected {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.wfh {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .calendar-day.wfh::after {
+            content: '\f015';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 0.7rem;
+            color: var(--success);
+        }
+
+        .calendar-day.disabled {
+            color: var(--gray);
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .submissions-container {
+            width: 100%;
+            max-width: 1200px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .submissions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .submissions-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-toggle button {
+            background-color: var(--gray-light);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-toggle button.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .cards-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .submission-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+
+        .submission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .card-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .status-approved {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .status-rejected {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .card-details {
+            margin-bottom: 1rem;
+        }
+
+        .card-detail {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .card-detail i {
+            color: var(--gray);
+            width: 1rem;
+        }
+
+        .card-reason {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--gray-light);
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .no-data {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+
+        .no-data i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gray-light);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px) rotate(10deg);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .confirmation-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .confirmation-animation.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .confirmation-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 400px;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .confirmation-animation.show .confirmation-content {
+            transform: scale(1);
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            color: var(--success);
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-20px);
+            }
+        }
+
+        .confirmation-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .confirmation-message {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+        }
+
+        .confirmation-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .confirmation-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="fade-in">
+        <h1>Work From Home Request</h1>
+        <p>Submit your request for remote work days</p>
+    </header>
+
+    <div class="container fade-in">
+        <div class="form-container pulse">
+            <h2 class="form-title"><i class="fas fa-laptop-house"></i> Request Form</h2>
+            <form id="wfhForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeName">Employee Name</label>
+                        <input type="text" id="employeeName" placeholder="John Doe" required>
+                        <p class="error-message" id="employeeNameError">Invalid name format</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeID">Employee ID</label>
+                        <input type="text" id="employeeID" placeholder="ABC1234" required>
+                        <p class="error-message" id="employeeIDError">Invalid ID format</p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="employeeEmail">Email</label>
+                        <input type="email" id="employeeEmail" placeholder="john@company.com" required>
+                        <p class="error-message" id="employeeEmailError">Invalid email</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="workingProject">Project</label>
+                        <input type="text" id="workingProject" placeholder="Project Name" required>
+                        <p class="error-message" id="workingProjectError">Invalid project name</p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reportingManager">Manager</label>
+                        <input type="text" id="reportingManager" placeholder="Manager Name" required>
+                        <p class="error-message" id="reportingManagerError">Invalid name</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="wfhLocation">Location</label>
+                        <input type="text" id="wfhLocation" placeholder="City, Country" required>
+                        <p class="error-message" id="wfhLocationError">Invalid location</p>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fromDate">From Date</label>
+                        <input type="date" id="fromDate" required>
+                        <p class="error-message" id="fromDateError">Invalid date</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="toDate">To Date</label>
+                        <input type="date" id="toDate" required>
+                        <p class="error-message" id="toDateError">Invalid date</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">Reason</label>
+                    <textarea id="reason" placeholder="Briefly explain your reason for WFH..." required></textarea>
+                    <p class="error-message" id="reasonError">Reason is required</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Submit Request
+                </button>
+            </form>
+        </div>
+
+        <div class="calendar-container fade-in">
+            <div class="calendar-header">
+                <h2 class="calendar-title"><i class="far fa-calendar-alt"></i> WFH Calendar</h2>
+                <div class="calendar-nav">
+                    <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                    <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div id="currentMonthYear" class="calendar-month"></div>
+            <div class="calendar-grid" id="calendarDaysHeader"></div>
+            <div class="calendar-grid" id="calendarDays"></div>
+        </div>
+    </div>
+
+    <div class="submissions-container fade-in">
+        <div class="submissions-header">
+            <h2 class="submissions-title"><i class="fas fa-history"></i> My Requests</h2>
+            <div class="view-toggle">
+                <button class="active" data-view="card"><i class="fas fa-th-large"></i></button>
+                <button data-view="list"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+        <div class="cards-section" id="submissionsList"></div>
+    </div>
+
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="confirmation-animation" id="confirmationAnimation">
+        <div class="confirmation-content">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="confirmation-title">Request Submitted!</h3>
+            <p class="confirmation-message">Your work from home request has been successfully submitted for approval.</p>
+            <button class="confirmation-button" id="confirmationButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // DOM Elements
+    const form = document.getElementById('wfhForm');
+    const submissionsList = document.getElementById('submissionsList');
+    const themeToggle = document.getElementById('themeToggle');
+    const confirmationAnimation = document.getElementById('confirmationAnimation');
+    const confirmationButton = document.getElementById('confirmationButton');
+    
+    // Calendar elements
+    const calendarDays = document.getElementById('calendarDays');
+    const calendarDaysHeader = document.getElementById('calendarDaysHeader');
+    const currentMonthYear = document.getElementById('currentMonthYear');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    
+    // Initialize variables
+    let allSubmissions = JSON.parse(localStorage.getItem('wfhRequests')) || [];
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+    
+    // Initialize the app
+    init();
+    
+    function init() {
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.classList.toggle('dark-mode', savedTheme === 'dark');
+        updateThemeIcon(savedTheme);
+        
+        // Set up event listeners
+        setupEventListeners();
+        
+        // Generate calendar
+        generateCalendarHeader();
+        generateCalendar(currentMonth, currentYear);
+        
+        // Display submissions
+        displaySubmissions();
+        
+        // Check for animations
+        checkAnimations();
+    }
+    
+    function setupEventListeners() {
+        // Form submission
+        form.addEventListener('submit', handleFormSubmit);
+        
+        // Field validation
+        setupValidation('employeeName', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                       'employeeNameError', 'Invalid name format');
+        setupValidation('employeeID', /^[A-Z]{3}(?!0000)[0-9]{4}$/, 
+                       'employeeIDError', 'Invalid ID format (ABC1234)');
+        setupValidation('employeeEmail', /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, 
+                       'employeeEmailError', 'Invalid email address');
+        setupValidation('workingProject', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                       'workingProjectError', 'Invalid project name');
+        setupValidation('reportingManager', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                       'reportingManagerError', 'Invalid manager name');
+        setupValidation('wfhLocation', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
+                       'wfhLocationError', 'Invalid location');
+        
+        // Date validation
+        document.getElementById('fromDate').addEventListener('change', validateDates);
+        document.getElementById('toDate').addEventListener('change', validateDates);
+        
+        // Theme toggle
+        themeToggle.addEventListener('click', toggleTheme);
+        
+        // Confirmation button
+        confirmationButton.addEventListener('click', () => {
+            confirmationAnimation.classList.remove('show');
+        });
+        
+        // Calendar navigation
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar(currentMonth, currentYear);
+        });
+        
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar(currentMonth, currentYear);
+        });
+        
+        // View toggle buttons
+        document.querySelectorAll('.view-toggle button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelector('.view-toggle .active').classList.remove('active');
+                button.classList.add('active');
+                displaySubmissions(button.dataset.view);
+            });
+        });
+    }
+    
+    function setupValidation(fieldId, pattern, errorId, errorMessage) {
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(errorId);
+        
+        field.addEventListener('input', () => {
+            const isValid = pattern.test(field.value.trim());
+            errorElement.textContent = isValid ? '' : errorMessage;
+            errorElement.style.display = isValid ? 'none' : 'block';
+            field.setCustomValidity(isValid ? '' : errorMessage);
+        });
+    }
+    
+    function validateDates() {
+        const fromDate = new Date(document.getElementById('fromDate').value);
+        const toDate = new Date(document.getElementById('toDate').value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const fromError = document.getElementById('fromDateError');
+        const toError = document.getElementById('toDateError');
+        
+        // Validate from date
+        if (fromDate && fromDate < today) {
+            fromError.textContent = 'From date cannot be in the past';
+            fromError.style.display = 'block';
+            document.getElementById('fromDate').setCustomValidity('Invalid date');
+        } else {
+            fromError.style.display = 'none';
+            document.getElementById('fromDate').setCustomValidity('');
+        }
+        
+        // Validate to date
+        if (toDate && fromDate && toDate <= fromDate) {
+            toError.textContent = 'To date must be after from date';
+            toError.style.display = 'block';
+            document.getElementById('toDate').setCustomValidity('Invalid date');
+        } else {
+            toError.style.display = 'none';
+            document.getElementById('toDate').setCustomValidity('');
+        }
+    }
+    
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        
+        // Validate all fields
+        if (!form.checkValidity()) {
+            alert('Please fill out all fields correctly before submitting.');
+            return;
+        }
+        
+        // Create request object
+        const request = {
+            id: Date.now().toString(),
+            name: document.getElementById('employeeName').value.trim(),
+            employeeId: document.getElementById('employeeID').value.trim(),
+            email: document.getElementById('employeeEmail').value.trim(),
+            project: document.getElementById('workingProject').value.trim(),
+            manager: document.getElementById('reportingManager').value.trim(),
+            location: document.getElementById('wfhLocation').value.trim(),
+            fromDate: document.getElementById('fromDate').value,
+            toDate: document.getElementById('toDate').value,
+            reason: document.getElementById('reason').value.trim(),
+            status: 'Pending',
+            submittedAt: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        allSubmissions.push(request);
+        localStorage.setItem('wfhRequests', JSON.stringify(allSubmissions));
+        
+        // Reset form
+        form.reset();
+        
+        // Show confirmation animation
+        showConfirmation();
+        
+        // Update UI
+        displaySubmissions();
+        generateCalendar(currentMonth, currentYear);
+    }
+    
+    function showConfirmation() {
+        confirmationAnimation.classList.add('show');
+        
+        // Hide after 3 seconds if not manually closed
+        setTimeout(() => {
+            if (confirmationAnimation.classList.contains('show')) {
+                confirmationAnimation.classList.remove('show');
+            }
+        }, 3000);
+    }
+    
+    function displaySubmissions(viewType = 'card') {
+        if (allSubmissions.length === 0) {
+            submissionsList.innerHTML = `
+                <div class="no-data">
+                    <i class="fas fa-inbox"></i>
+                    <p>No submissions yet</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Sort by date (newest first)
+        const sortedSubmissions = [...allSubmissions].sort((a, b) => 
+            new Date(b.submittedAt) - new Date(a.submittedAt));
+        
+        if (viewType === 'list') {
+            // List view implementation would go here
+            // For now we'll just use card view
+            displayCardView(sortedSubmissions);
+        } else {
+            displayCardView(sortedSubmissions);
+        }
+    }
+    
+    function displayCardView(submissions) {
+        submissionsList.innerHTML = '';
+        
+        submissions.forEach(submission => {
+            const card = document.createElement('div');
+            card.className = 'submission-card';
+            
+            // Format dates
+            const fromDate = new Date(submission.fromDate).toLocaleDateString();
+            const toDate = new Date(submission.toDate).toLocaleDateString();
+            const submittedDate = new Date(submission.submittedAt).toLocaleString();
+            
+            // Status class
+            const statusClass = `status-${submission.status.toLowerCase()}`;
+            
+            card.innerHTML = `
+                <div class="card-header">
+                    <h3 class="card-title">${submission.name}</h3>
+                    <span class="card-status ${statusClass}">${submission.status}</span>
+                </div>
+                <div class="card-details">
+                    <div class="card-detail">
+                        <i class="fas fa-id-badge"></i>
+                        <span>${submission.employeeId}</span>
+                    </div>
+                    <div class="card-detail">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>${submission.project}</span>
+                    </div>
+                    <div class="card-detail">
+                        <i class="fas fa-user-tie"></i>
+                        <span>${submission.manager}</span>
+                    </div>
+                    <div class="card-detail">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>${fromDate} to ${toDate}</span>
+                    </div>
+                    <div class="card-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${submission.location}</span>
+                    </div>
+                </div>
+                <div class="card-reason">
+                    <strong>Reason:</strong> ${submission.reason}
+                </div>
+            `;
+            
+            submissionsList.appendChild(card);
+        });
+    }
+    
+    function generateCalendarHeader() {
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        calendarDaysHeader.innerHTML = '';
+        
+        days.forEach(day => {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day-header';
+            dayElement.textContent = day;
+            calendarDaysHeader.appendChild(dayElement);
+        });
+    }
+    
+    function generateCalendar(month, year) {
+        // Display month and year
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+        currentMonthYear.textContent = `${monthNames[month]} ${year}`;
+        
+        // Get first day of month and total days
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        // Get days from previous month
+        const prevMonthDays = new Date(year, month, 0).getDate();
+        
+        // Clear calendar
+        calendarDays.innerHTML = '';
+        
+        // Add days from previous month
+        for (let i = firstDay - 1; i >= 0; i--) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day disabled';
+            dayElement.textContent = prevMonthDays - i;
+            calendarDays.appendChild(dayElement);
+        }
+        
+        // Add days from current month
+        const today = new Date();
+        const currentDate = today.getDate();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+        
+        // Get approved WFH dates
+        const approvedDates = allSubmissions
+            .filter(sub => sub.status === 'Approved')
+            .flatMap(sub => {
+                const start = new Date(sub.fromDate);
+                const end = new Date(sub.toDate);
+                const dates = [];
+                
+                // Include all dates in the range
+                for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                    dates.push(new Date(d).toISOString().split('T')[0]);
+                }
+                
+                return dates;
+            });
+        
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            dayElement.textContent = i;
+            
+            // Check if today
+            if (i === currentDate && month === currentMonth && year === currentYear) {
+                dayElement.classList.add('today');
+            }
+            
+            // Check if WFH day
+            const dateStr = new Date(year, month, i).toISOString().split('T')[0];
+            if (approvedDates.includes(dateStr)) {
+                dayElement.classList.add('wfh');
+            }
+            
+            calendarDays.appendChild(dayElement);
+        }
+        
+        // Calculate total cells (7 columns x 6 rows = 42)
+        const totalCells = 42;
+        const remainingCells = totalCells - (firstDay + daysInMonth);
+        
+        // Add days from next month
+        for (let i = 1; i <= remainingCells; i++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day disabled';
+            dayElement.textContent = i;
+            calendarDays.appendChild(dayElement);
+        }
+    }
+    
+    function toggleTheme() {
+        const isDark = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        updateThemeIcon(isDark ? 'dark' : 'light');
+    }
+    
+      function updateThemeIcon(theme) {
+        const icon = themeToggle.querySelector('i');
+        if (theme === 'dark') {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+    
+    function checkAnimations() {
+        // Check if user prefers reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (prefersReducedMotion) {
+            document.querySelectorAll('.fade-in, .pulse').forEach(el => {
+                el.style.animation = 'none';
+            });
+        }
+    }
+    
+    // Additional helper functions
+    function getStatusColor(status) {
+        switch(status.toLowerCase()) {
+            case 'approved': return 'var(--success)';
+            case 'rejected': return 'var(--error)';
+            default: return 'var(--warning)';
+        }
+    }
+    
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+    
+    // Initialize calendar with current month
+    generateCalendar(new Date().getMonth(), new Date().getFullYear());
+});
+
+// Service worker registration for offline capability
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('ServiceWorker registration successful');
+        }).catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+        });
+    });
+}
+    </script>
+</body>
+</html>
