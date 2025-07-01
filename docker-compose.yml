@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: wfh-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: new_employee_db
+    ports:
+      - "5505:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  backend:
+    build: ./Backend
+    container_name: wfh-backend
+    ports:
+      - "3078:3078"
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - DB_NAME=new_employee_db
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - FRONTEND_URL=http://51.20.6.123:8273
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  frontend:
+    build: ./Frontend
+    container_name: wfh-frontend
+    ports:
+      - "8273:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  hr_page:
+    build: ./HR_page
+    container_name: wfh-hr-page
+    ports:
+      - "8274:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+
