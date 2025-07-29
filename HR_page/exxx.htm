@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -396,7 +394,9 @@
             opacity: 0;
         }
 
-        .status-message.show {
+        .
+
+status-message.show {
             transform: translateX(0);
             opacity: 1;
         }
@@ -607,7 +607,7 @@
 
         .confirmation-message {
             font-size: 0.875rem;
-            /* color: var(--gray); */
+            color: var(--gray);
             margin-bottom: 1.5rem;
             line-height: 1.5;
         }
@@ -689,47 +689,6 @@
                 grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             }
         }
-       .status-message {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    border-radius: 6px;
-    color: white !important;  /* ← Force white text */
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 9999;
-}
-
-.status-message.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.status-message.success {
-    background-color: #28a745;
-}
-
-.status-message.error {
-    background-color: #dc3545;
-}
-
-.status-message.warning {
-    background-color: #ffc107;
-    color: white !important; /* Or black if needed for yellow background */
-}
-
-.status-message i,
-.status-message span {
-    color: white !important; /* Force icon and message text to be white */
-}
-
     </style>
 </head>
 <body>
@@ -821,7 +780,7 @@
             <p class="confirmation-message" id="confirmationMessage">
                 Are you sure you want to perform this action?
             </p>
-            <div class="confirmation-buttons" style="margin-bottom: 20px;">
+            <div class="confirmation-buttons">
                 <button class="btn btn-cancel" id="confirmCancel">Cancel</button>
                 <button class="btn" id="confirmAction">Confirm</button>
             </div>
@@ -829,7 +788,7 @@
     </div>
 
     <script>
-        const BASE_URL = 'http://16.171.230.202:3078';
+        const BASE_URL = 'http://16.171.140.12:3078';
 
         document.addEventListener('DOMContentLoaded', function() {
             // DOM Elements
@@ -867,22 +826,21 @@
                 return new Date(dateString).toLocaleDateString(undefined, options);
             }
 
-function showStatusMessage(type, message) {
-    const messageEl = document.createElement('div');
-    messageEl.className = `status-message ${type}`;
-    messageEl.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-    statusMessageContainer.appendChild(messageEl);
-    void messageEl.offsetWidth; // Trigger reflow
-    messageEl.classList.add('show');
-    setTimeout(() => {
-        messageEl.classList.remove('show');
-        setTimeout(() => messageEl.remove(), 300);
-    }, 5000);
-}
-
+            function showStatusMessage(type, message) {
+                const messageEl = document.createElement('div');
+                messageEl.className = `status-message ${type}`;
+                messageEl.innerHTML = `
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                `;
+                statusMessageContainer.appendChild(messageEl);
+                void messageEl.offsetWidth; // Trigger reflow
+                messageEl.classList.add('show');
+                setTimeout(() => {
+                    messageEl.classList.remove('show');
+                    setTimeout(() => messageEl.remove(), 300);
+                }, 5000);
+            }
 
             async function fetchRequests() {
                 try {

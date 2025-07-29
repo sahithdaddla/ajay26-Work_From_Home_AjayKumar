@@ -1,34 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work From Home Request</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-light: #818cf8;
-            --primary-dark: #4f46e5;
-            --primary-extra-light: #e0e7ff;
-            --secondary: #f43f5e;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --dark: #1e293b;
-            --darker: #0f172a;
-            --light: #f8fafc;
-            --lighter: #ffffff;
-            --gray: #94a3b8;
+            --primary: #6b46c1; 
+            --primary-light: #a68de8; 
+            --primary-dark: #553c9a;
+            --success: #38a169; 
+            --warning: #ed8936;
+            --error: #e53e3e;
+            --dark: #2d3748; 
+            --light: #f7fafc; 
+            --lighter: #ffffff; 
+            --gray: #718096;
             --gray-light: #e2e8f0;
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --border-radius: 12px;
-            --border-radius-lg: 16px;
-            --border-radius-xl: 20px;
+            --accent: #3182ce;
+            --accent-light: #63b3ed; 
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-blur: blur(10px);
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
         }
 
         * {
@@ -39,10 +37,9 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: var(--dark);
+            background: white;
+            color: black;
             line-height: 1.6;
-            transition: var(--transition);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -52,64 +49,89 @@
 
         header {
             width: 100%;
-            max-width: 1200px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 2.5rem;
-            border-radius: var(--border-radius-xl);
-            margin-bottom: 2rem;
+            max-width: 1400px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: var(--lighter);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            text-align: center;
-            z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        header::before {
-            content: '';
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        header p {
+            font-size: 1rem;
+            opacity: 0.85;
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner-background {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
-            background-size: cover;
-            z-index: -1;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.025em;
+        .circle {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: moveCircles 12s infinite ease-in-out;
         }
 
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 300;
+        .circle:nth-child(1) {
+            top: 15%;
+            left: 25%;
+            animation-duration: 10s;
         }
 
-        .main-container {
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+        .circle:nth-child(2) {
+            top: 55%;
+            left: 65%;
+            animation-duration: 14s;
+        }
+
+        .circle:nth-child(3) {
+            top: 75%;
+            left: 35%;
+            animation-duration: 16s;
+        }
+
+        @keyframes moveCircles {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(-40%, -40%); }
+            100% { transform: translate(0, 0); }
         }
 
         .filter-container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
             padding: 1rem;
-            background: var(--card-bg);
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
             border-radius: var(--border-radius-lg);
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .filter-left {
@@ -118,40 +140,179 @@
         }
 
         .filter-left select {
-            padding: 0.75rem;
+            padding: 0.5rem 1rem;
             border: 1px solid var(--gray-light);
             border-radius: var(--border-radius);
             font-size: 0.95rem;
             background: var(--lighter);
             transition: var(--transition);
+            color: var(--dark);
         }
 
         .filter-left select:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
         }
 
         .filter-right .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
+            background: var(--accent);
+            color: var(--lighter);
+            padding: 0.5rem 1rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-radius: var(--border-radius);
+        }
+
+        .filter-right .btn-primary:hover {
+            background: var(--accent-light);
+            color: var(--dark);
+            transform: translateY(-1px);
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 1400px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .form-container.show {
+            display: block;
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .filter-right .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-dark), #3b82f6);
-            transform: translateY(-2px);
+        .wfh-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: var(--lighter);
+            color: var(--dark);
+        }
+
+        textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .submit-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--lighter);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            color: var(--dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--gray-light);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray);
+            color: var(--lighter);
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1400px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .requests-container {
-            background: linear-gradient(rgb(255, 255, 255),rgb(244, 251, 255));
-            border-radius: var(--border-radius-xl);
+            background: var(--lighter);
+            border-radius: var(--border-radius-lg);
             padding: 1.5rem;
-            box-shadow: var(--card-shadow);
+            box-shadow: var(--shadow);
             height: 100vh;
             overflow-y: auto;
         }
@@ -167,48 +328,72 @@
         }
 
         .request-item {
-            display: grid;
-            grid-template-columns: 2fr 3fr 1fr;
-            gap: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
             padding: 1rem;
-            margin-top: 4px;
-            border-bottom: 1px solid var(--gray-light);
-            transition: var(--transition);
-            background: linear-gradient(135deg, #d3ffed, #ffffff);
+            margin-bottom: 1rem;
             border-radius: var(--border-radius);
-            box-shadow: var(--card-shadow-hover);
+            background: linear-gradient(135deg, #edf2f7, #f7fafc);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
         .request-item:hover {
             transform: translateY(-2px);
-            box-shadow: var(--card-shadow-hover);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
         }
 
-        .request-item div {
-            font-size: 0.95rem;
-            color: var(--dark);
+        .request-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .request-item .request-type {
+        .request-type {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-weight: 500;
-        }
-
-        .request-item .request-dates {
-            color: var(--gray);
-        }
-
-        .request-item .view-link {
             color: var(--primary);
-            cursor: pointer;
-            text-decoration: none;
+        }
+
+        .request-dates {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .request-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
-        .request-item .view-link:hover {
-            color: var(--primary-dark);
+        .status-pending {
+            background: #fefcbf;
+            color: #d69e2e;
+        }
+
+        .status-approved {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+
+        .status-rejected {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .view-link {
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .view-link:hover {
+            color: var(--accent-light);
             text-decoration: underline;
         }
 
@@ -218,25 +403,24 @@
             color: var(--gray);
         }
 
-        .no-data img {
-            max-width: 150px;
+        .no-data span {
+            font-size: 2rem;
             margin-bottom: 1rem;
+            display: block;
         }
 
         .right-container {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .calendar-container {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: var(--border-radius-xl);
-            padding: .9rem;
-            box-shadow: var(--card-shadow);
-            height: 55vh; /* Reduced from 80vh */
-            overflow-y: auto;
-            color: white;
+            background: linear-gradient(135deg, #e9d8fd, #f7fafc);
+            border-radius: var(--border-radius-lg);
+            padding: 1.25rem;
+            box-shadow: var(--shadow);
+            height: 60vh;
         }
 
         .calendar-header {
@@ -246,130 +430,131 @@
             margin-bottom: 1rem;
         }
 
-        .calendar-title {
-            font-size: 1.25rem;
-            font-weight: 400;
-            display: flex;
-            align-items: center;
-            gap: 0.2rem;
-        }
-
         .calendar-nav {
             display: flex;
-            gap: 0.2rem;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .calendar-nav button {
-            background: rgba(255, 255, 255, 0.2);
+            background: var(--lighter);
             border: none;
-            border-radius: var(--border-radius);
-            width: 1rem;
-            height: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            color: var(--dark);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 2rem;
+            height: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             transition: var(--transition);
-            color: white;
-            margin-top: 0.2rem;
         }
 
         .calendar-nav button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: var(--gray-light);
         }
 
         .calendar-month {
-            font-size: 1rem;
             font-weight: 600;
-          
+            min-width: 8rem;
             text-align: center;
+            color: var(--primary);
+            font-size: 1.2rem;
         }
 
-        .calendar-grid {
+        .calendar {
+            width: 100%;
+            background: var(--lighter);
+            border-radius: var(--border-radius);
+            padding: 0.75rem;
+        }
+
+        .calendar .header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: rgb(2, 2, 117);
+        }
+
+        .calendar .header span {
+            flex: 1;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .calendar .days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 0.3rem;
+            gap: 0.5rem;
         }
 
-        .calendar-day-header {
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-left: 0px;
-            color: rgba(28, 255, 255, 0.8);
-            padding: 0.5rem;
-            text-transform: uppercase;
-        }
-
-        .calendar-day {
-            aspect-ratio: 1;
+        .calendar .day {
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            height: 2rem;
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
+            font-weight: 500;
+            color: var(--dark);
             position: relative;
-            height: 28px;
-            margin-left: 22px;
-            width: 27px;
-            font-weight: 100;
-            border: 1px solid transparent;
-            background: rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
         }
 
-        .calendar-day:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+        .calendar .day:hover {
+            background: var(--gray-light);
         }
 
-        .calendar-day.today {
-            background: var(--success);
-            color: white;
-            font-weight: 600;
-        }
-
-        .calendar-day.selected {
-            background: var(--primary-dark);
-            color: white;
-            font-weight: 600;
-        }
-
-        .calendar-day.wfh {
-            background: rgba(16, 185, 129, 0.3);
-            color: white;
-            font-weight: 600;
-            border: 1px dashed var(--success);
-        }
-
-        .calendar-day.wfh::after {
-            content: '\f015';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            font-size: 0.7rem;
+        .calendar .day.wfh {
             color: var(--success);
         }
 
-        .calendar-day.disabled {
-            color: rgba(255, 255, 255, 0.5);
-            pointer-events: none;
-            background: rgba(255, 255, 255, 0.05);
+        .calendar .day.holiday {
+            color: var(--warning);
+        }
+
+        .calendar .day.today {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .calendar .day.other-month {
+            color: var(--gray);
+            opacity: 0.4;
+        }
+
+        .calendar .day[data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: var(--lighter);
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 10;
         }
 
         .summary-container {
-            background: linear-gradient(rgb(210, 255, 210),rgb(219, 255, 252));
-            border-radius:30px;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border-radius: var(--border-radius-lg);
             padding: 1.5rem;
-            box-shadow: var(--card-shadow);
-            height: 40vh; /* Adjusted from 30vh to maintain layout balance */
+            box-shadow: var(--shadow);
+            height: 35vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 2px solid transparent;
         }
 
         .summary-container h2 {
@@ -392,13 +577,8 @@
             margin-bottom: 0.75rem;
         }
 
-        .summary-item i {
-            font-size: 1.5rem;
-            color: navy;
-        }
-
-        .no-data img {
-            max-width: 100px;
+        .summary-item span.emoji {
+            font-size: 1.2rem;
         }
 
         .modal {
@@ -408,11 +588,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
         }
 
         .modal.show {
@@ -422,10 +602,10 @@
         .modal-content {
             background: var(--lighter);
             padding: 2rem;
-            border-radius: var(--border-radius-xl);
+            border-radius: var(--border-radius-lg);
             max-width: 600px;
             width: 90%;
-            box-shadow: var(--card-shadow-hover);
+            box-shadow: var(--shadow);
             position: relative;
             animation: slideIn 0.3s ease;
         }
@@ -434,7 +614,7 @@
             position: absolute;
             top: 1rem;
             right: 1rem;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: var(--gray);
             cursor: pointer;
             transition: var(--transition);
@@ -444,182 +624,18 @@
             color: var(--error);
         }
 
-        .form-container {
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .form-title {
+        .modal-header {
             font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--primary);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--darker);
-            font-size: 0.9rem;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            background-color: var(--lighter);
-            color: var(--dark);
-        }
-textarea {
-     width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            background-color: var(--lighter);
-            color: var(--dark);
-            resize: none;
-            height: 120px;
-        }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-      
-
-        .error-message {
-            color: var(--error);
-            font-size: 0.8rem;
-            margin-top: 0.25rem;
-            display: none;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-size: 1rem;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            width: 100%;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-dark), #3b82f6);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
-        }
-
-        .confirmation-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .confirmation-animation.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .confirmation-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: var(--border-radius-xl);
-            text-align: center;
-            max-width: 400px;
-            transform: scale(0.8);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: var(--card-shadow-hover);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .confirmation-animation.show .confirmation-content {
-            transform: scale(1);
-        }
-
-        .confirmation-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1.5rem;
-        }
-
-        .confirmation-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--darker);
-        }
-
-        .confirmation-message {
-            margin-bottom: 1.5rem;
-            color: var(--gray);
-            line-height: 1.5;
-        }
-
-        .confirmation-button {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            width: 100%;
-        }
-
-        .confirmation-button:hover {
-            background: linear-gradient(135deg, var(--primary-dark), #3b82f6);
-            transform: translateY(-2px);
         }
 
         .detail-modal-content {
-            padding: 2rem;
+            padding: 1.5rem;
             max-height: 80vh;
             overflow-y: auto;
         }
@@ -640,8 +656,88 @@ textarea {
             color: var(--dark);
         }
 
-        .detail-modal-content p i {
+        .detail-modal-content p span.emoji {
+            font-size: 1rem;
+        }
+
+        .confirmation-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .confirmation-animation.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .confirmation-content {
+            background: var(--lighter);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            text-align: center;
+            max-width: 400px;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .confirmation-animation.show .confirmation-content {
+            transform: scale(1);
+        }
+
+        .confirmation-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .confirmation-message {
+            margin-bottom: 1rem;
             color: var(--gray);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .confirmation-button {
+            background: var(--accent);
+            color: var(--lighter);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            width: 100%;
+        }
+
+        .confirmation-button:hover {
+            background: var(--accent-light);
+            color: var(--dark);
+            transform: translateY(-1px);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
         }
 
         @media (max-width: 1024px) {
@@ -660,7 +756,7 @@ textarea {
 
         @media (max-width: 768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .filter-container {
@@ -677,44 +773,38 @@ textarea {
                 width: 100%;
             }
 
-            .request-item {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
             .calendar-container {
                 height: 40vh;
             }
-        }
 
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+            .calendar .day {
+                height: 1.75rem;
+                font-size: 0.8rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+
+            .form-row {
+                flex-direction: column;
             }
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
-        }
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+            .calendar-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
             }
-            70% {
-                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+
+            .calendar-nav {
+                width: 100%;
+                justify-content: space-between;
             }
-            100% {
-                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+
+            .calendar-month {
+                min-width: auto;
             }
         }
 
@@ -731,12 +821,17 @@ textarea {
     </style>
 </head>
 <body>
-    <header class="fade-in">
-        <h1>Work From Home Request</h1>
+    <header>
+        <div class="banner-background">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+        <h1>🏠 Work From Home Request</h1>
         <p>Manage your remote work requests efficiently</p>
     </header>
 
-    <div class="filter-container fade-in">
+    <div class="filter-container">
         <div class="filter-left">
             <select id="monthFilter">
                 <option value="">All Months</option>
@@ -761,487 +856,1026 @@ textarea {
             </select>
         </div>
         <div class="filter-right">
-            <button class="btn btn-primary" id="applyWFH"><i class="fas fa-laptop-house"></i> Apply WFH Request</button>
+            <button class="btn btn-primary" id="applyWFH">🏠 Apply WFH Request</button>
         </div>
     </div>
 
-    <div class="main-container fade-in">
+    <div class="form-container" id="wfhFormContainer">
+        <h2 class="form-title">🏠 WFH Request Form</h2>
+        <form id="wfhForm" class="wfh-form" onsubmit="return false" novalidate>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="employeeName">👤 Employee Name</label>
+                        <input type="text" id="employeeName" placeholder="Enter your name" required minlength="3" maxlength="100">
+                        <p class="error-message" id="employeeNameError"></p>
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="employeeID">🪪 Employee ID</label>
+                        <input type="text" id="employeeID" placeholder="ATS0xxx" required minlength="7" maxlength="7">
+                        <p class="error-message" id="employeeIDError"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="employeeEmail">📧 Email</label>
+                        <input type="email" id="employeeEmail" placeholder="your.name@astrolitetech.com" required minlength="3" maxlength="100" onkeypress="return (event.charCode != 32)">
+                        <p class="error-message" id="employeeEmailError"></p>
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="workingProject">📈 Project</label>
+                        <input type="text" id="workingProject" placeholder="Project name" required minlength="3" maxlength="40">
+                        <p class="error-message" id="workingProjectError"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="reportingManager">👨‍💼 Manager</label>
+                        <input type="text" id="reportingManager" placeholder="Manager name" required minlength="3" maxlength="40">
+                        <p class="error-message" id="reportingManagerError"></p>
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="wfhLocation">📍 Location</label>
+                        <input type="text" id="wfhLocation" placeholder="Your location" required minlength="3" maxlength="100">
+                        <p class="error-message" id="wfhLocationError"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="fromDate">📅 From Date</label>
+                        <input type="date" id="fromDate" required>
+                        <p class="error-message" id="fromDateError"></p>
+                    </div>
+                </div>
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="toDate">📅 To Date</label>
+                        <input type="date" id="toDate" required>
+                        <p class="error-message" id="toDateError"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="reason">💬 Reason</label>
+                <textarea id="reason" placeholder="Reason for WFH request..." required minlength="10" maxlength="200"></textarea>
+                <p class="error-message" id="reasonError"></p>
+            </div>
+            <div class="submit-container">
+                <button type="button" class="btn btn-secondary" id="cancelFormBtn">Cancel</button>
+                <button type="submit" class="btn btn-primary">✈️ Submit Request</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="main-container">
         <div class="requests-container">
-            <h2 style="display: flex; justify-content: center; background:linear-gradient(rgb(133, 169, 255),rgb(254, 218, 255)); color: rgb(6, 18, 97); border-radius: 12px; padding: auto;"><i class="fas fa-list"></i> My Requests</h2>
+            <h2>📋 My Requests</h2>
             <div id="requestsList"></div>
         </div>
         <div class="right-container">
             <div class="calendar-container">
                 <div class="calendar-header">
-                  
-                     <div class="calendarr" style="display: flex; margin-left: auto; margin-right: auto; justify-content: center; gap: 20px;" >
-                <div id="currentMonthYear" class="calendar-month"></div><div class="calendar-nav">
-                        <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
-                        <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
-                    </div>
+                    <div class="calendar-nav">
+                        <button id="prevMonth">⬅️</button>
+                        <div class="calendar-month" id="currentMonthYear"></div>
+                        <button id="nextMonth">➡️</button>
                     </div>
                 </div>
-               
-                <div class="calendar-grid" id="calendarDaysHeader"></div>
-                <div class="calendar-grid" id="calendarDays"></div>
+                <div class="calendar">
+                    <div class="header">
+                        <span>Sun</span>
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                    </div>
+                    <div class="days" id="calendarDays"></div>
+                </div>
             </div>
             <div class="summary-container">
-                <h2><i class="fas fa-chart-pie"></i> WFH Summary</h2>
+                <h2>📊 WFH Summary</h2>
                 <div id="wfhSummary"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="wfhFormModal">
-        <div class="modal-content">
-            <i class="fas fa-times modal-close" id="closeFormModal"></i>
-            <div class="form-container">
-                <h2 class="form-title"><i class="fas fa-laptop-house"></i> WFH Request Form</h2>
-                <form id="wfhForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="employeeName">Employee Name</label>
-                            <input type="text" id="employeeName" placeholder="Employee Name" required>
-                            <p class="error-message" id="employeeNameError">Invalid name format</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="employeeID">Employee ID</label>
-                            <input type="text" id="employeeID" placeholder="ATS0xxx" required>
-                            <p class="error-message" id="employeeIDError">Invalid ID format</p>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="employeeEmail">Email</label>
-                            <input type="email" id="employeeEmail" placeholder="Employee Mail ID" required>
-                            <p class="error-message" id="employeeEmailError">Only company email domains allowed</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="workingProject">Project</label>
-                            <input type="text" id="workingProject" placeholder="Project Name" required>
-                            <p class="error-message" id="workingProjectError">Invalid project name</p>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="reportingManager">Manager</label>
-                            <input type="text" id="reportingManager" placeholder="Manager Name" required>
-                            <p class="error-message" id="reportingManagerError">Invalid name</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="wfhLocation">Location</label>
-                            <input type="text" id="wfhLocation" placeholder="Location" required>
-                            <p class="error-message" id="wfhLocationError">Invalid location</p>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="fromDate">From Date</label>
-                            <input type="date" id="fromDate" required>
-                            <p class="error-message" id="fromDateError">Invalid date</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="toDate">To Date</label>
-                            <input type="date" id="toDate" required>
-                            <p class="error-message" id="toDateError">Invalid date</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="reason">Reason</label>
-                        <textarea id="reason" placeholder="Briefly explain your reason for WFH..." required></textarea>
-                        <p class="error-message" id="reasonError">Reason is required</p>
-                    </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Request</button>
-                </form>
             </div>
         </div>
     </div>
 
     <div class="modal" id="detailModal">
         <div class="modal-content detail-modal-content">
-            <i class="fas fa-times modal-close" id="closeDetailModal"></i>
+            <span class="modal-close" id="detailModalClose">❌</span>
             <div id="requestDetails"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>Confirm Submission</span>
+                <span class="modal-close" id="confirmModalClose">❌</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to submit this WFH request?</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelSubmitBtn">Cancel</button>
+                <button class="btn btn-primary" id="confirmSubmitBtn">✅ Confirm</button>
+            </div>
         </div>
     </div>
 
     <div class="confirmation-animation" id="confirmationAnimation">
         <div class="confirmation-content">
-            <img src="https://cdn.pixabay.com/animation/2023/03/20/02/45/02-45-27-186_512.gif" class="confirmation-icon" alt="Success">
+            <span class="confirmation-icon">✅</span>
             <h3 class="confirmation-title">Request Submitted!</h3>
-            <p class="confirmation-message">Your work from home request has been successfully submitted for approval.</p>
+            <p class="confirmation-message" id="confirmationMessage"></p>
             <button class="confirmation-button" id="confirmationButton">OK</button>
         </div>
     </div>
+<script>
+  const BASE_URL = 'http://16.171.230.202:3078';
+const ANNUAL_WFH_LIMIT = 60;
+let validationTimeout;
 
-    <script>
-        const BASE_URL = 'http://16.171.140.12:3078';
+// Define holidays
+const holidays = {
+    1: { 1: "New Year's Day", 14: "Makar Sankranti", 26: "Republic Day" },
+    2: { 14: "Maha Shivaratri" },
+    3: { 2: "Holi" },
+    4: { 14: "Ram Navami", 18: "Good Friday" },
+    8: { 15: "Independence Day", 5: "Krishna Janmashtami", 15: "Ganesh Chaturthi" },
+    10: { 2: "Gandhi Jayanti", 20: "Dussehra", 9: "Diwali" },
+    12: { 25: "Christmas" }
+};
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('wfhForm');
-            const requestsList = document.getElementById('requestsList');
-            const wfhSummary = document.getElementById('wfhSummary');
-            const confirmationAnimation = document.getElementById('confirmationAnimation');
-            const confirmationButton = document.getElementById('confirmationButton');
-            const calendarDays = document.getElementById('calendarDays');
-            const calendarDaysHeader = document.getElementById('calendarDaysHeader');
-            const currentMonthYear = document.getElementById('currentMonthYear');
-            const prevMonthBtn = document.getElementById('prevMonth');
-            const nextMonthBtn = document.getElementById('nextMonth');
-            const applyWFH = document.getElementById('applyWFH');
-            const wfhFormModal = document.getElementById('wfhFormModal');
-            const closeFormModal = document.getElementById('closeFormModal');
-            const detailModal = document.getElementById('detailModal');
-            const closeDetailModal = document.getElementById('closeDetailModal');
-            const monthFilter = document.getElementById('monthFilter');
-            const yearFilter = document.getElementById('yearFilter');
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('wfhForm');
+    const formContainer = document.getElementById('wfhFormContainer');
+    const requestsList = document.getElementById('requestsList');
+    const wfhSummary = document.getElementById('wfhSummary');
+    const confirmationAnimation = document.getElementById('confirmationAnimation');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    const confirmationButton = document.getElementById('confirmationButton');
+    const calendarDays = document.getElementById('calendarDays');
+    const currentMonthYear = document.getElementById('currentMonthYear');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const applyWFH = document.getElementById('applyWFH');
+    const detailModal = document.getElementById('detailModal');
+    const monthFilter = document.getElementById('monthFilter');
+    const yearFilter = document.getElementById('yearFilter');
 
-            let allSubmissions = [];
-            let currentDate = new Date();
-            let currentMonth = currentDate.getMonth();
-            let currentYear = currentDate.getFullYear();
-            const ANNUAL_WFH_LIMIT = 20; // Example limit
+    let allSubmissions = [];
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
 
-            init();
+    init();
 
-            function init() {
-                setupEventListeners();
-                generateCalendarHeader();
-                generateCalendar(currentMonth, currentYear);
-                fetchSubmissions();
-                checkAnimations();
-            }
+    function init() {
+        setupEventListeners();
+        const empId = document.getElementById('employeeID').value.trim();
+        if (empId && /^ATS0(?!000)[0-9]{3}$/.test(empId)) {
+            fetchSubmissions(empId);
+        } else {
+            showNoDataMessage();
+        }
+        setDateConstraints();
+    }
 
-            function setupEventListeners() {
-                form.addEventListener('submit', handleFormSubmit);
-                applyWFH.addEventListener('click', () => wfhFormModal.classList.add('show'));
-                closeFormModal.addEventListener('click', () => wfhFormModal.classList.remove('show'));
-                closeDetailModal.addEventListener('click', () => detailModal.classList.remove('show'));
-                monthFilter.addEventListener('change', filterRequests);
-                yearFilter.addEventListener('change', filterRequests);
+    function showNoDataMessage() {
+        requestsList.innerHTML = `
+            <div class="no-data">
+                <span>📭</span>
+                <p>Please enter a valid Employee ID to view requests</p>
+            </div>`;
+        wfhSummary.innerHTML = `
+            <div class="no-data">
+                <span>📊</span>
+                <p>Enter Employee ID to view summary</p>
+            </div>`;
+        generateCalendar();
+    }
 
-                setupValidation('employeeName', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
-                               'employeeNameError', 'Invalid name format');
-                setupValidation('employeeID', /^[ATS]{3}(?!0000)[0-9]{4}$/, 
-                               'employeeIDError', 'Invalid ID format (ABC1234)');
-                setupValidation('employeeEmail', /^[a-zA-Z0-9._%+-]+@(gmail\.com|outlook\.com|[\w-]+\.(com|in|co|org))$/, 
-                               'employeeEmailError', 'Only company email domains allowed');
-                setupValidation('workingProject', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
-                               'workingProjectError', 'Invalid project name');
-                setupValidation('reportingManager', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
-                               'reportingManagerError', 'Invalid manager name');
-                setupValidation('wfhLocation', /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/, 
-                               'wfhLocationError', 'Invalid location');
+    function setDateConstraints() {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const oneYearFromToday = new Date(today);
+        oneYearFromToday.setFullYear(today.getFullYear() + 1);
+        const fromDateInput = document.getElementById('fromDate');
+        const toDateInput = document.getElementById('toDate');
+        fromDateInput.min = formatDate(today);
+        fromDateInput.max = formatDate(oneYearFromToday);
+        toDateInput.min = formatDate(today);
+        toDateInput.max = formatDate(oneYearFromToday);
+    }
 
-                document.getElementById('fromDate').addEventListener('change', validateDates);
-                document.getElementById('toDate').addEventListener('change', validateDates);
+    function setupEventListeners() {
+        applyWFH.addEventListener('click', toggleForm);
+        form.addEventListener('submit', handleFormSubmit);
+        monthFilter.addEventListener('change', filterRequests);
+        yearFilter.addEventListener('change', filterRequests);
 
-                confirmationButton.addEventListener('click', () => {
-                    confirmationAnimation.classList.remove('show');
-                });
+        const inputs = [
+            { id: 'employeeName', validator: validateEmployeeName },
+            { id: 'employeeID', validator: validateEmployeeID },
+            { id: 'employeeEmail', validator: validateEmail },
+            { id: 'workingProject', validator: validateWorkingProject },
+            { id: 'reportingManager', validator: validateReportingManager },
+            { id: 'wfhLocation', validator: validateLocation },
+            { id: 'reason', validator: validateReason }
+        ];
 
-                prevMonthBtn.addEventListener('click', () => {
-                    currentMonth--;
-                    if (currentMonth < 0) {
-                        currentMonth = 11;
-                        currentYear--;
+        inputs.forEach(({ id, validator }) => {
+            const input = document.getElementById(id);
+            input.addEventListener('input', () => {
+                clearTimeout(validationTimeout);
+                validationTimeout = setTimeout(() => {
+                    validator();
+                    if (id === 'employeeID' && validateEmployeeID()) {
+                        fetchSubmissions(input.value.trim());
                     }
-                    generateCalendar(currentMonth, currentYear);
-                });
+                }, 500);
+            });
+        });
 
-                nextMonthBtn.addEventListener('click', () => {
-                    currentMonth++;
-                    if (currentMonth > 11) {
-                        currentMonth = 0;
-                        currentYear++;
-                    }
-                    generateCalendar(currentMonth, currentYear);
-                });
-            }
-
-            function setupValidation(fieldId, pattern, errorId, errorMessage) {
-                const field = document.getElementById(fieldId);
-                const errorElement = document.getElementById(errorId);
-
-                field.addEventListener('input', () => {
-                    const isValid = pattern.test(field.value.trim());
-                    errorElement.textContent = isValid ? '' : errorMessage;
-                    errorElement.style.display = isValid ? 'none' : 'block';
-                    field.setCustomValidity(isValid ? '' : errorMessage);
-                });
-            }
-
-            function validateDates() {
-                const fromDate = new Date(document.getElementById('fromDate').value);
-                const toDate = new Date(document.getElementById('toDate').value);
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                const fromError = document.getElementById('fromDateError');
-                const toError = document.getElementById('toDateError');
-
-                if (fromDate && fromDate < today) {
-                    fromError.textContent = 'From date cannot be in the past';
-                    fromError.style.display = 'block';
-                    document.getElementById('fromDate').setCustomValidity('Invalid date');
-                } else {
-                    fromError.style.display = 'none';
-                    document.getElementById('fromDate').setCustomValidity('');
-                }
-
-                if (toDate && fromDate && toDate <= fromDate) {
-                    toError.textContent = 'To date must be after from date';
-                    toError.style.display = 'block';
-                    document.getElementById('toDate').setCustomValidity('Invalid date');
-                } else {
-                    toError.style.display = 'none';
-                    document.getElementById('toDate').setCustomValidity('');
-                }
-            }
-
-            async function handleFormSubmit(event) {
-                event.preventDefault();
-
-                if (!form.checkValidity()) {
-                    alert('Please fill out all fields correctly before submitting.');
-                    return;
-                }
-
-                const request = {
-                    name: document.getElementById('employeeName').value.trim(),
-                    employeeId: document.getElementById('employeeID').value.trim(),
-                    email: document.getElementById('employeeEmail').value.trim(),
-                    project: document.getElementById('workingProject').value.trim(),
-                    manager: document.getElementById('reportingManager').value.trim(),
-                    location: document.getElementById('wfhLocation').value.trim(),
-                    fromDate: document.getElementById('fromDate').value,
-                    toDate: document.getElementById('toDate').value,
-                    reason: document.getElementById('reason').value.trim(),
-                    status: 'Pending'
-                };
-
-                try {
-                    const response = await fetch(`${BASE_URL}/api/requests`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(request)
-                    });
-
-                    if (!response.ok) {
-                        const error = await response.json();
-                        throw new Error(error.error || 'Failed to submit request');
-                    }
-
-                    form.reset();
-                    wfhFormModal.classList.remove('show');
-                    showConfirmation();
-                    fetchSubmissions();
-                } catch (error) {
-                    console.error('Error submitting request:', error);
-                    alert(`Error: ${error.message}`);
-                }
-            }
-
-            function showConfirmation() {
-                confirmationAnimation.classList.add('show');
-                setTimeout(() => {
-                    if (confirmationAnimation.classList.contains('show')) {
-                        confirmationAnimation.classList.remove('show');
-                    }
-                }, 3000);
-            }
-
-            async function fetchSubmissions() {
-                try {
-                    const response = await fetch(`${BASE_URL}/api/requests`);
-                    if (!response.ok) throw new Error('Failed to fetch submissions');
-                    allSubmissions = await response.json();
-                    filterRequests();
-                    displaySummary();
-                    generateCalendar(currentMonth, currentYear);
-                } catch (error) {
-                    console.error('Error fetching submissions:', error);
-                    requestsList.innerHTML = `
-                        <div class="no-data">
-                            <img src="https://cdn.pixabay.com/photo/2020/09/27/12/21/empty-5606696_1280.png" alt="No Data">
-                            <p>Error loading requests</p>
-                        </div>
-                    `;
-                    wfhSummary.innerHTML = `
-                        <div class="no-data">
-                            <img src="https://cdn.pixabay.com/photo/2020/09/27/12/21/empty-5606696_1280.png" alt="No Data">
-                            <p>Error loading summary</p>
-                        </div>
-                    `;
-                }
-            }
-
-            function filterRequests() {
-                const month = monthFilter.value;
-                const year = yearFilter.value;
-
-                const filteredSubmissions = allSubmissions.filter(sub => {
-                    const fromDate = new Date(sub.from_date);
-                    const matchesMonth = month === '' || fromDate.getMonth() === parseInt(month);
-                    const matchesYear = year === '' || fromDate.getFullYear() === parseInt(year);
-                    return matchesMonth && matchesYear;
-                });
-
-                displayRequests(filteredSubmissions);
-            }
-
-            function displayRequests(submissions) {
-                requestsList.innerHTML = '';
-                if (submissions.length === 0) {
-                    requestsList.innerHTML = `
-                        <div class="no-data">
-                            <img src="https://cdn.pixabay.com/photo/2020/09/27/12/21/empty-5606696_1280.png" alt="No Data">
-                            <p>No requests found</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                submissions.forEach(sub => {
-                    const item = document.createElement('div');
-                    item.className = 'request-item fade-in';
-                    const fromDate = formatDate(sub.from_date);
-                    const toDate = formatDate(sub.to_date);
-                    item.innerHTML = `
-                        <div class="request-type"><i class="fas fa-laptop-house"></i> Work From Home</div>
-                        <div class="request-dates">${fromDate} - ${toDate}</div>
-                        <a href="#" class="view-link" data-id="${sub.id}">View</a>
-                    `;
-                    item.querySelector('.view-link').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        showRequestDetails(sub);
-                    });
-                    requestsList.appendChild(item);
-                });
-            }
-
-            function showRequestDetails(submission) {
-                const details = document.getElementById('requestDetails');
-                const fromDate = formatDate(submission.from_date);
-                const toDate = formatDate(submission.to_date);
-                const statusClass = `status-${submission.status.toLowerCase()}`;
-                details.innerHTML = `
-                    <h2>Request Details</h2>
-                    <p><i class="fas fa-user"></i> <strong>Name:</strong> ${submission.name}</p>
-                    <p><i class="fas fa-id-badge"></i> <strong>Employee ID:</strong> ${submission.employee_id}</p>
-                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> ${submission.email}</p>
-                    <p><i class="fas fa-project-diagram"></i> <strong>Project:</strong> ${submission.project}</p>
-                    <p><i class="fas fa-user-tie"></i> <strong>Manager:</strong> ${submission.manager}</p>
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${submission.location}</p>
-                    <p><i class="fas fa-calendar-day"></i> <strong>Dates:</strong> ${fromDate} - ${toDate}</p>
-                    <p><i class="fas fa-comment"></i> <strong>Reason:</strong> ${submission.reason}</p>
-                    <p><i class="fas fa-info-circle"></i> <strong>Status:</strong> <span class="card-status ${statusClass}">${submission.status}</span></p>
-                `;
-                detailModal.classList.add('show');
-            }
-
-            function displaySummary() {
-                const approvedRequests = allSubmissions.filter(sub => sub.status === 'Approved').length;
-                const remaining = ANNUAL_WFH_LIMIT - approvedRequests;
-                wfhSummary.innerHTML = `
-                    <div class="summary-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>${approvedRequests}/${ANNUAL_WFH_LIMIT} Allocated WFH Requests</span>
-                    </div>
-                    <div class="summary-item">
-                        <i class="fas fa-hourglass-half"></i>
-                        <span>${remaining} Remaining WFH Requests</span>
-                    </div>
-                `;
-            }
-
-            function generateCalendarHeader() {
-                const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                calendarDaysHeader.innerHTML = '';
-                days.forEach(day => {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day-header';
-                    dayElement.textContent = day;
-                    calendarDaysHeader.appendChild(dayElement);
-                });
-            }
-
-            function generateCalendar(month, year) {
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                                  'July', 'August', 'September', 'October', 'November', 'December'];
-                currentMonthYear.textContent = `${monthNames[month]} ${year}`;
-
-                const firstDay = new Date(year, month, 1).getDay();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const prevMonthDays = new Date(year, month, 0).getDate();
-
-                calendarDays.innerHTML = '';
-
-                for (let i = firstDay - 1; i >= 0; i--) {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day disabled';
-                    dayElement.textContent = prevMonthDays - i;
-                    calendarDays.appendChild(dayElement);
-                }
-
-                const today = new Date();
-                const currentDate = today.getDate();
-                const currentMonth = today.getMonth();
-                const currentYear = today.getFullYear();
-
-                const approvedDates = allSubmissions
-                    .filter(sub => sub.status === 'Approved')
-                    .flatMap(sub => {
-                        const start = new Date(sub.from_date);
-                        const end = new Date(sub.to_date);
-                        const dates = [];
-                        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-                            dates.push(new Date(d).toISOString().split('T')[0]);
-                        }
-                        return dates;
-                    });
-
-                for (let i = 1; i <= daysInMonth; i++) {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day';
-                    dayElement.textContent = i;
-
-                    if (i === currentDate && month === currentMonth && year === currentYear) {
-                        dayElement.classList.add('today');
-                    }
-
-                    const dateStr = new Date(year, month, i).toISOString().split('T')[0];
-                    if (approvedDates.includes(dateStr)) {
-                        dayElement.classList.add('wfh');
-                    }
-
-                    calendarDays.appendChild(dayElement);
-                }
-
-                const totalCells = 42; // Increased to 42 to ensure 6 rows for consistency
-                const remainingCells = totalCells - (firstDay + daysInMonth);
-
-                for (let i = 1; i <= remainingCells; i++) {
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day disabled';
-                    dayElement.textContent = i;
-                    calendarDays.appendChild(dayElement);
-                }
-            }
-
-            function checkAnimations() {
-                const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                if (prefersReducedMotion) {
-                    document.querySelectorAll('.fade-in, .pulse').forEach(el => {
-                        el.style.animation = 'none';
-                    });
-                }
-            }
-
-            function formatDate(dateString) {
-                const options = { year: 'numeric', month: 'short', day: 'numeric' };
-                return new Date(dateString).toLocaleDateString(undefined, options);
+        const emailInput = document.getElementById('employeeEmail');
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === ' ' || e.key === 'Spacebar' || /\s/.test(e.key)) {
+                e.preventDefault();
             }
         });
-    </script>
+
+        emailInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            const sanitizedText = pastedText.replace(/\s+/g, '');
+            document.execCommand('insertText', false, sanitizedText);
+            validateEmail();
+        });
+
+        document.getElementById('fromDate').addEventListener('change', validateDates);
+        document.getElementById('toDate').addEventListener('change', validateDates);
+
+        confirmationButton.addEventListener('click', () => {
+            confirmationAnimation.classList.remove('show');
+        });
+
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar();
+        });
+
+        const cancelFormBtn = document.getElementById('cancelFormBtn');
+        if (cancelFormBtn) {
+            cancelFormBtn.addEventListener('click', closeForm);
+        }
+
+        const detailModalClose = document.getElementById('detailModalClose');
+        if (detailModalClose) {
+            detailModalClose.addEventListener('click', () => detailModal.classList.remove('show'));
+        }
+
+        const confirmModalClose = document.getElementById('confirmModalClose');
+        const cancelSubmitBtn = document.getElementById('cancelSubmitBtn');
+        const confirmSubmitBtn = document.getElementById('confirmSubmitBtn');
+
+        if (confirmModalClose) {
+            confirmModalClose.addEventListener('click', () => closeModal('confirmModal'));
+        }
+        if (cancelSubmitBtn) {
+            cancelSubmitBtn.addEventListener('click', cancelSubmit);
+        }
+        if (confirmSubmitBtn) {
+            confirmSubmitBtn.addEventListener('click', confirmSubmit);
+        }
+    }
+
+    function toggleForm() {
+        formContainer.classList.toggle('show');
+        applyWFH.querySelector('span')?.remove();
+        const isOpen = formContainer.classList.contains('show');
+        applyWFH.innerHTML = `🏠 ${isOpen ? 'Close WFH Form' : 'Apply WFH Request'}`;
+        if (!isOpen) {
+            form.reset();
+            clearErrors();
+        }
+    }
+
+    function closeForm() {
+        formContainer.classList.remove('show');
+        applyWFH.innerHTML = `🏠 Apply WFH Request`;
+        form.reset();
+        clearErrors();
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(error => {
+            error.textContent = '';
+            error.classList.remove('show');
+        });
+        form.querySelectorAll('input, textarea').forEach(input => {
+            input.setCustomValidity('');
+        });
+    }
+
+    function validateEmployeeName() {
+        const name = document.getElementById('employeeName').value;
+        const nameRegex = /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/;
+        const consecutiveSpaces = /\s{2,}/;
+        const leadingTrailingSpaces = /^\s+|\s+$/;
+        const errorElement = document.getElementById('employeeNameError');
+
+        if (!name) {
+            errorElement.textContent = 'Name is required';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (leadingTrailingSpaces.test(name)) {
+            errorElement.textContent = 'No leading or trailing spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (consecutiveSpaces.test(name)) {
+            errorElement.textContent = 'No consecutive spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (!nameRegex.test(name)) {
+            errorElement.textContent = 'Invalid name: Only letters, single spaces, and up to 3 dot-separated suffixes (e.g., John.M.Doe Smith.Jr)';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        errorElement.classList.remove('show');
+        return true;
+    }
+
+    function validateEmployeeID() {
+        const empId = document.getElementById('employeeID').value.trim();
+        const empIdRegex = /^ATS0(?!000)[0-9]{3}$/;
+        const errorElement = document.getElementById('employeeIDError');
+
+        if (!empId) {
+            errorElement.textContent = 'Employee ID is required';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (!empIdRegex.test(empId)) {
+            errorElement.textContent = 'Format: ATS0 followed by 3 digits (not all zeros)';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        errorElement.classList.remove('show');
+        return true;
+    }
+
+    function validateEmail() {
+        const emailInput = document.getElementById('employeeEmail').value;
+        const hasSpaces = /\s/;
+        const emailRegex = /^[a-zA-Z][a-zA-Z0-9._-]*[a-zA-Z0-9]@astrolitetech\.com$/;
+        const errorElement = document.getElementById('employeeEmailError');
+
+        const sanitizedEmail = emailInput.replace(/\s+/g, '');
+        if (emailInput !== sanitizedEmail) {
+            document.getElementById('employeeEmail').value = sanitizedEmail;
+        }
+
+        if (!sanitizedEmail) {
+            errorElement.textContent = 'Email is required';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (hasSpaces.test(emailInput)) {
+            errorElement.textContent = 'No spaces allowed in email';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (!emailRegex.test(sanitizedEmail)) {
+            errorElement.textContent = 'Email must be in format: firstname.lastname@astrolitetech.com';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        errorElement.classList.remove('show');
+        return true;
+    }
+
+    function validateWorkingProject() {
+        const project = document.getElementById('workingProject').value;
+        const projectRegex = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
+        const consecutiveSpaces = /\s{2,}/;
+        const leadingTrailingSpaces = /^\s+|\s+$/;
+        const errorElement = document.getElementById('workingProjectError');
+
+        if (!project) {
+            errorElement.textContent = 'Project name is required';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (leadingTrailingSpaces.test(project)) {
+            errorElement.textContent = 'No leading or trailing spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (consecutiveSpaces.test(project)) {
+            errorElement.textContent = 'No consecutive spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (project.length < 3 || project.length > 40) {
+            errorElement.textContent = 'Project name must be 3-40 characters';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (!projectRegex.test(project)) {
+            errorElement.textContent = 'Project name must contain only letters and single spaces';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        errorElement.classList.remove('show');
+        return true;
+    }
+
+    function validateReportingManager() {
+        const manager = document.getElementById('reportingManager').value;
+        const nameRegex = /^[A-Za-z]+(?:\.[A-Za-z]+)*(?: [A-Za-z]+)*(?:\.[A-Za-z]+){0,3}$/;
+        const consecutiveSpaces = /\s{2,}/;
+        const leadingTrailingSpaces = /^\s+|\s+$/;
+        const errorElement = document.getElementById('reportingManagerError');
+
+        if (!manager) {
+            errorElement.textContent = 'Manager name is required';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (leadingTrailingSpaces.test(manager)) {
+            errorElement.textContent = 'No leading or trailing spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (consecutiveSpaces.test(manager)) {
+            errorElement.textContent = 'No consecutive spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (!nameRegex.test(manager)) {
+            errorElement.textContent = 'Invalid name: Only letters, single spaces, and up to 3 dot-separated suffixes (e.g., John.M.Doe Smith.Jr)';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        errorElement.classList.remove('show');
+        return true;
+    }
+
+    function validateLocation() {
+        const location = document.getElementById('wfhLocation').value;
+        const locationRegex = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
+        const consecutiveSpaces = /\s{2,}/;
+        const leadingTrailingSpaces = /^\s+|\s+$/;
+        const errorElement = document.getElementById('wfhLocationError');
+
+        if (!location) {
+            errorElement.textContent = 'Location is required';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (leadingTrailingSpaces.test(location)) {
+            errorElement.textContent = 'No leading or trailing spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (consecutiveSpaces.test(location)) {
+            errorElement.textContent = 'No consecutive spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (location.length < 3 || location.length > 100) {
+            errorElement.textContent = 'Location must be 3-100 characters';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (!locationRegex.test(location)) {
+            errorElement.textContent = 'Location must contain only letters and single spaces';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        errorElement.classList.remove('show');
+        return true;
+    }
+
+    function validateReason() {
+        const reason = document.getElementById('reason').value;
+        const reasonRegex = /^[A-Za-z][A-Za-z0-9\s,.]*[A-Za-z0-9]$/;
+        const consecutiveSpaces = /\s{2,}/;
+        const leadingTrailingSpaces = /^\s+|\s+$/;
+        const invalidConsecutive = /(,{2,}|\.{2,}|,\s,|\.\s\.|,\s\.|\.\s,)/;
+        const errorElement = document.getElementById('reasonError');
+
+        if (!reason) {
+            errorElement.textContent = 'Reason is required';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (leadingTrailingSpaces.test(reason)) {
+            errorElement.textContent = 'No leading or trailing spaces';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (consecutiveSpaces.test(reason)) {
+            errorElement.textContent = 'No consecutive spaces allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (reason.length < 10 || reason.length > 200) {
+            errorElement.textContent = 'Reason must be 10-200 characters';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (!reasonRegex.test(reason)) {
+            errorElement.textContent = 'Reason must start with a letter, end with a letter or number, and only letters, numbers, spaces, commas, periods';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        if (invalidConsecutive.test(reason)) {
+            errorElement.textContent = 'No consecutive commas, periods, or invalid punctuation patterns allowed';
+            errorElement.classList.add('show');
+            return false;
+        }
+
+        errorElement.classList.remove('show');
+        return true;
+    }
+
+    function validateDates() {
+        const fromDateInput = document.getElementById('fromDate');
+        const toDateInput = document.getElementById('toDate');
+        const fromDate = new Date(fromDateInput.value);
+        const toDate = new Date(toDateInput.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const oneYearFromToday = new Date(today);
+        oneYearFromToday.setFullYear(today.getFullYear() + 1);
+        const maxRangeMs = 60 * 24 * 60 * 60 * 1000;
+        const fromError = document.getElementById('fromDateError');
+        const toError = document.getElementById('toDateError');
+        const empId = document.getElementById('employeeID').value.trim();
+
+        if (!fromDateInput.value) {
+            fromError.textContent = 'From date is required';
+            fromError.classList.add('show');
+            fromDateInput.setCustomValidity('From date is required');
+            return false;
+        }
+
+        if (fromDate < today || fromDate > oneYearFromToday) {
+            fromError.textContent = 'From date must be today or within one year';
+            fromError.classList.add('show');
+            fromDateInput.setCustomValidity('Invalid date');
+            return false;
+        }
+
+        fromError.classList.remove('show');
+        fromDateInput.setCustomValidity('');
+
+        if (!toDateInput.value) {
+            toError.textContent = 'To date is required';
+            toError.classList.add('show');
+            toDateInput.setCustomValidity('To date is required');
+            return false;
+        }
+
+        if (toDate < fromDate) {
+            toError.textContent = 'To date must be on or after from date';
+            toError.classList.add('show');
+            toDateInput.setCustomValidity('Invalid date');
+            return false;
+        }
+
+        const rangeMs = toDate - fromDate;
+        if (rangeMs > maxRangeMs) {
+            toError.textContent = 'Date range cannot exceed 60 days';
+            toError.classList.add('show');
+            toDateInput.setCustomValidity('Invalid date');
+            return false;
+        }
+
+        // Check for date overlaps with existing submissions
+        if (empId && allSubmissions.length > 0) {
+            const newFrom = new Date(fromDateInput.value);
+            const newTo = new Date(toDateInput.value);
+            
+            for (const sub of allSubmissions) {
+                const subFrom = new Date(sub.from_date);
+                const subTo = new Date(sub.to_date);
+                
+                if ((newFrom >= subFrom && newFrom <= subTo) || 
+                    (newTo >= subFrom && newTo <= subTo) ||
+                    (newFrom <= subFrom && newTo >= subTo)) {
+                    
+                    fromError.textContent = 'Dates overlap with existing request';
+                    fromError.classList.add('show');
+                    toError.textContent = 'Dates overlap with existing request';
+                    toError.classList.add('show');
+                    return false;
+                }
+            }
+        }
+
+        toError.classList.remove('show');
+        toDateInput.setCustomValidity('');
+        return true;
+    }
+
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const validations = [
+            validateEmployeeName(),
+            validateEmployeeID(),
+            validateEmail(),
+            validateWorkingProject(),
+            validateReportingManager(),
+            validateLocation(),
+            validateReason(),
+            validateDates()
+        ];
+
+        if (validations.every(valid => valid)) {
+            document.getElementById('confirmModal').style.display = 'flex';
+        } else {
+            alert('Please correct the form errors before submitting.');
+        }
+    }
+
+    async function confirmSubmit() {
+        closeModal('confirmModal');
+        const submitBtn = document.querySelector('#wfhForm button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        const fromDate = new Date(document.getElementById('fromDate').value);
+        const toDate = new Date(document.getElementById('toDate').value);
+        const daysCount = Math.floor((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1;
+
+const request = {
+        name: document.getElementById('employeeName').value.trim(),
+        employeeId: document.getElementById('employeeID').value.trim(),
+        email: document.getElementById('employeeEmail').value.trim(),
+        project: document.getElementById('workingProject').value.trim(),
+        manager: document.getElementById('reportingManager').value.trim(),
+        location: document.getElementById('wfhLocation').value.trim(),
+        fromDate: document.getElementById('fromDate').value,
+        toDate: document.getElementById('toDate').value,
+        reason: document.getElementById('reason').value.trim(),
+        status: 'Pending'
+    };
+
+    console.log('Request payload:', request);
+
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+            const response = await fetch(`${BASE_URL}/api/requests`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(request),
+                signal: controller.signal,
+                mode: 'cors'
+            });
+
+            clearTimeout(timeoutId);
+
+            let result;
+            try {
+                result = await response.json();
+            } catch (jsonError) {
+                console.error('Error parsing JSON response:', jsonError, 'Status:', response.status);
+                alert(`Server returned invalid response: ${response.status} ${response.statusText}`);
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✈️ Submit Request';
+                return;
+            }
+
+            if (!response.ok) {
+                console.error('Server error response:', result, 'Status:', response.status);
+                alert(`Server error: ${result.error || 'Failed to submit request'}`);
+                submitBtn.disabled = false;
+                submitBtn.textContent = '✈️ Submit Request';
+                return;
+            }
+
+            form.reset();
+            closeForm();
+            showConfirmation(request.fromDate, request.toDate, daysCount);
+            await fetchSubmissions(request.employeeId);
+
+            submitBtn.disabled = false;
+            submitBtn.textContent = '✈️ Submit Request';
+
+            setTimeout(() => {
+                if (confirmationAnimation.classList.contains('show')) {
+                    confirmationAnimation.classList.remove('show');
+                }
+            }, 5000);
+
+        } catch (error) {
+            console.error('Error submitting request:', error);
+            submitBtn.disabled = false;
+            submitBtn.textContent = '✈️ Submit Request';
+            if (error.name === 'AbortError') {
+                alert('Error submitting request: Request timed out. Please try again.');
+            } else if (error.message.includes('Failed to fetch')) {
+                alert('Error submitting request: Unable to connect to server. Check network or server status.');
+            } else {
+                alert('Error submitting request: ' + error.message);
+            }
+        }
+    }
+
+    function cancelSubmit() {
+        closeModal('confirmModal');
+    }
+
+    function showConfirmation(fromDate, toDate, daysCount) {
+        const from = formatDate(fromDate);
+        const to = formatDate(toDate);
+        confirmationMessage.textContent = `Your work from home request for ${daysCount} day${daysCount > 1 ? 's' : ''} (${from} to ${to}) has been successfully submitted for approval.`;
+        confirmationAnimation.classList.add('show');
+        confirmationAnimation.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function fetchSubmissions(employeeId = '') {
+        if (!employeeId || !/^ATS0(?!000)[0-9]{3}$/.test(employeeId)) {
+            showNoDataMessage();
+            allSubmissions = [];
+            generateCalendar();
+            return;
+        }
+
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
+            const url = new URL(`${BASE_URL}/api/requests`);
+            url.searchParams.append('employeeId', employeeId);
+            const response = await fetch(url, {
+                headers: { 'Accept': 'application/json' },
+                signal: controller.signal,
+                mode: 'cors'
+            });
+            clearTimeout(timeoutId);
+
+            let submissions;
+            try {
+                submissions = await response.json();
+            } catch (jsonError) {
+                console.error('Error parsing JSON response:', jsonError, 'Status:', response.status);
+                throw new Error(`Invalid server response: ${response.status} ${response.statusText}`);
+            }
+
+            if (!response.ok) {
+                throw new Error(`${submissions.error || 'Server error'}`);
+            }
+
+            allSubmissions = submissions;
+            filterRequests();
+            displaySummary();
+            generateCalendar();
+        } catch (error) {
+            console.error('Error fetching submissions:', error);
+            requestsList.innerHTML = `
+                <div class="no-data">
+                    <span>⚠️</span>
+                    <p>Error loading requests</p>
+                </div>`;
+            wfhSummary.innerHTML = `
+                <div class="no-data">
+                    <span>⚠️</span>
+                    <p>Error loading summary</p>
+                </div>`;
+            allSubmissions = [];
+            generateCalendar();
+        }
+    }
+
+    function filterRequests() {
+        const month = monthFilter.value;
+        const year = yearFilter.value;
+
+        const filteredSubmissions = allSubmissions.filter(sub => {
+            const fromDate = new Date(sub.from_date);
+            const matchesMonth = month === '' || fromDate.getMonth() === parseInt(month);
+            const matchesYear = year === '' || fromDate.getFullYear() === parseInt(year);
+            return matchesMonth && matchesYear;
+        });
+
+        displayRequests(filteredSubmissions);
+    }
+
+    function displayRequests(submissions) {
+        requestsList.innerHTML = '';
+        if (submissions.length === 0) {
+            requestsList.innerHTML = `
+                <div class="no-data">
+                    <span>📭</span>
+                    <p>No requests found</p>
+                </div>`;
+            return;
+        }
+
+        submissions.forEach(sub => {
+            const item = document.createElement('div');
+            item.className = 'request-item';
+            const fromDate = formatDate(sub.from_date);
+            const toDate = formatDate(sub.to_date);
+            item.innerHTML = `
+                <div class="request-header">
+                    <div class="request-type">🏠 Work From Home</div>
+                    <span class="request-status status-${sub.status.toLowerCase()}">${sub.status}</span>
+                </div>
+                <span class="request-dates">${fromDate} - ${toDate}</span>
+                <a href="#" class="view-link">View Details</a>
+            `;
+            item.querySelector('.view-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                showRequestDetails(sub);
+            });
+            requestsList.appendChild(item);
+        });
+    }
+
+    function showRequestDetails(submission) {
+        const detailsContainer = document.getElementById('requestDetails');
+        const fromDate = formatDate(submission.from_date);
+        const toDate = formatDate(submission.to_date);
+        detailsContainer.innerHTML = `
+            <h2>Request Details</h2>
+            <p><span class="emoji">👤</span> <strong>Name:</strong> ${submission.name}</p>
+            <p><span class="emoji">🪪</span> <strong>Employee ID:</strong> ${submission.employee_id}</p>
+            <p><span class="emoji">📧</span> <strong>Email:</strong> ${submission.email}</p>
+            <p><span class="emoji">💡</span> <strong>Project:</strong> ${submission.project}</p>
+            <p><span class="emoji">👨‍💼</span> <strong>Manager:</strong> ${submission.manager}</p>
+            <p><span class="emoji">📍</span> <strong>Location:</strong> ${submission.location}</p>
+            <p><span class="emoji">📅</span> <strong>Dates:</strong> ${fromDate} - ${toDate}</p>
+            <p><span class="emoji">💬</span> <strong>Reason:</strong> ${submission.reason}</p>
+            <p><span class="emoji">🔍</span> <strong>Status:</strong> <span class="request-status status-${submission.status.toLowerCase()}">${submission.status}</span></p>
+        `;
+        detailModal.classList.add('show');
+    }
+
+    function displaySummary() {
+        const approvedDays = calculateApprovedDays();
+        const remainingDays = ANNUAL_WFH_LIMIT - approvedDays;
+        wfhSummary.innerHTML = `
+            <div class="summary-item">
+                <span class="emoji">✅</span>
+                <span>${approvedDays}/${ANNUAL_WFH_LIMIT} Approved WFH Days</span>
+            </div>
+            <div class="summary-item">
+                <span class="emoji">⏳</span>
+                <span>${remainingDays} Remaining WFH Days</span>
+            </div>
+        `;
+    }
+
+    function calculateApprovedDays() {
+        let totalDays = 0;
+        const approvedRequests = allSubmissions.filter(sub => sub.status === 'Approved');
+        approvedRequests.forEach(sub => {
+            const start = new Date(sub.from_date);
+            const end = new Date(sub.to_date);
+            const days = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
+            totalDays += days;
+        });
+        return totalDays;
+    }
+
+    function generateCalendar() {
+        const daysContainer = document.getElementById('calendarDays');
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+            'August', 'September', 'October', 'November', 'December'];
+        currentMonthYear.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+
+        const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const lastDayOfMonth = new Date(currentYear, currentMonth, daysInMonth).getDay();
+        const daysInLastMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+        daysContainer.innerHTML = '';
+
+        for (let i = firstDayOfMonth; i > 0; i--) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day other-month';
+            dayElement.textContent = daysInLastMonth - i + 1;
+            daysContainer.appendChild(dayElement);
+        }
+
+        const today = new Date();
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+            dayElement.textContent = day;
+
+            if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                dayElement.classList.add('today');
+                dayElement.setAttribute('data-tooltip', 'Today');
+            }
+            else if (currentYear === 2025) {
+                const monthHolidays = holidays[currentMonth + 1];
+                if (monthHolidays && monthHolidays[day]) {
+                    dayElement.classList.add('holiday');
+                    dayElement.setAttribute('data-tooltip', monthHolidays[day]);
+                }
+            }
+
+            if (!dayElement.classList.contains('today') && !dayElement.classList.contains('holiday')) {
+                const wfhOnThisDay = allSubmissions.find(sub => {
+                    const leaveDate = new Date(sub.from_date);
+                    const leaveEndDate = new Date(sub.to_date);
+                    const currentDate = new Date(currentYear, currentMonth, day);
+                    return sub.status === 'Approved' &&
+                        currentDate >= leaveDate &&
+                        currentDate <= leaveEndDate;
+                });
+
+                if (wfhOnThisDay) {
+                    dayElement.classList.add('wfh');
+                    dayElement.setAttribute('data-tooltip', 'WFH');
+                }
+            }
+
+            daysContainer.appendChild(dayElement);
+        }
+
+        for (let i = 1; i <= (6 - lastDayOfMonth); i++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day other-month';
+            dayElement.textContent = i;
+            daysContainer.appendChild(dayElement);
+        }
+    }
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    }
+});
+</script>
 </body>
 </html>
